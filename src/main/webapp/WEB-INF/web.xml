@@ -13,6 +13,10 @@
         <param-name>br.com.caelum.vraptor.encoding</param-name>
         <param-value>UTF-8</param-value>
     </context-param>
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+        <param-value>messages_es</param-value>
+    </context-param>
     <filter-mapping>
         <filter-name>vraptor</filter-name>
         <url-pattern>/*</url-pattern>
