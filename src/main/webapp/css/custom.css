@@ -3,7 +3,32 @@
 
 #header{
   height: 60px;
-  background-color: #c21f24;
+  background-color: #676767;
+}
+
+.square{
+    
+    margin-left: 50px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    height:100px;
+    width: 510px;
+}
+
+.square h1{
+    color:#ffffff;
+}
+
+.square p{
+    color:#ffffff;
+}
+
+.btnBack{
+    padding: 1.5em 0 0 40%;
+}
+
+#logo{
+    margin-top: 6px;
 }
 
 #banner{

@@ -5,7 +5,7 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <title>Bootstrap 101 Template</title>
+    <title>Econfin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -23,10 +23,10 @@ and open the template in the editor.
      
      <div id="header">
           <div class="container">
-              <h1>Header</h1>
+              <a href="http://www.ecofincapital.com/"><img src="images/ecofin_logo@140x.png" class="img-responsive" alt="Ecofin" id="logo"></a>
           </div>
       </div>
-	  <div class="container">
+      <div class="container">
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
          <div class="row" id="banner">
@@ -39,20 +39,76 @@ and open the template in the editor.
                       <input type="text" class="form-control" id="inputFirstName" placeholder="Nombre">
                     </div>
                     <div class="form-group">
-                      <label class="sr-only" for="inputLastName">Apellido</label>
-                      <input type="text" class="form-control" id="inputLastName" placeholder="Apellido">
+                      <label class="sr-only" for="inputEmail">Email</label>
+                      <input type="email" class="form-control" id="inputEmail" placeholder="Email">
                     </div>
                     <div class="form-group">
-                      <label class="sr-only" for="inputEmail">Correo eletronico</label>
-                      <input type="email" class="form-control" id="inputEmail" placeholder="Correo eletronico">
+                      <label class="sr-only" for="inputPhone">Tel&eacute;fono</label>
+                      <input type="text" class="form-control" id="inputPhone" placeholder="Tel&eacute;fono">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="form-group">
+                      <label class="sr-only" for="inputCountry">Pa&iacute;s</label>
+                      <input type="text" class="form-control" id="inputCountry" placeholder="Pa&iacute;s">
+                    </div>
+                    <div class="form-group">
+                      <label class="sr-only" for="inputCity">Ciudad</label>
+                      <input type="text" class="form-control" id="inputCity" placeholder="Ciudad">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
                   </form>
               </div>
          </div>
       </div>
       </div>
       
+      <div class="container" style="position: relative;">
+         <div class="row">
+                <div class="col-xs-6 col-sm-5 col-md-5 square animated" id="square1" style="background-color: #b62123">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <h1>Conteudo 1</h1>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 btnBack" hidden>
+                            <button type="submit" class="btn btn-primary">Regressar</button>
+                        </div>
+                    </div>
+                    <p hidden>CONTEUDO AQUI CONTEUDO AQUI CONTEUDO AQUI CONTEUDO AQUI CONTEUDO AQUI CONTEUDO AQUI </p>
+                </div>
+                <div class="col-xs-6 col-sm-5 col-md-5 square animated" id="square2" style="background-color: #b62123">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                               <h1>Conteudo 1</h1>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 btnBack" hidden>
+                               <button type="submit" class="btn btn-primary">Regressar</button>
+                        </div>
+                    </div>
+                    <p hidden>CONTEUDO AQUI CONTEUDO AQUI CONTEUDO AQUI CONTEUDO AQUI CONTEUDO AQUI CONTEUDO AQUI </p>
+                </div>
+         </div>
+         <div class="row">
+                <div class="col-xs-6 col-sm-5 col-md-5 square animated" id="square3" style="background-color: #b62123">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                               <h1>Conteudo 1</h1>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 btnBack" hidden>
+                               <button type="submit" class="btn btn-primary">Regressar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-5 col-md-5 square animated" id="square4" style="background-color: #b62123">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                               <h1>Conteudo 1</h1>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 btnBack" hidden>
+                               <button type="submit" class="btn btn-primary">Regressar</button>
+                        </div>
+                    </div>
+                </div>
+         </div>
+      </div>
    </div>
    <div id="footer">
       <div class="container">
@@ -60,8 +116,49 @@ and open the template in the editor.
       </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="js/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            $(".animated").click(function(){
+                current = $(this);
+                position = current.position();
+                $(".square").not(this).fadeOut("slow",function(){
+                   current.css({
+                       "postition" : "absolute",
+                       "left" : position.left,
+                        "top" : position.top 
+                    });
+                    current.stop().animate({
+                        height: "200px",
+                        width: "1050px",
+                        top: "0px",
+                        left: "0px"
+                   },500,function(){
+                       $(".btnBack").fadeIn("fast",function(){current.removeClass("animated");});
+                   });
+                });
+            });
+            
+            $(".btnBack").click(function(){
+                var currentPos = current.position();
+                $(".btnBack").fadeOut("fast",function(){
+                        current.css({
+                            "postition" : "absolute",
+                            "left" : currentPos.left,
+                            "top" : currentPos.top
+                        });
+                        current.stop().animate({
+                            height: "100px",
+                            width: "510px",
+                            top: position.top,
+                            left: position.left
+                       },500,function(){$(".square").not(current).fadeIn("slow",function(){current.addClass("animated");});});
+                });
+            });
+        });
+    </script>
   </body>
 </html>
