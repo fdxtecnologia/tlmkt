@@ -33,26 +33,26 @@ and open the template in the editor.
               <div class="col-xs-12 col-sm-6 col-md-8"><h2>Imagem</h2></div>
               <div class="col-xs-6 col-sm-6 col-md-4">
                 <!--<h2>Formulario</h2>-->
-                <form role="form">
+                <form action="http://localhost:8080/tlmkt/cliente/save">
                     <div class="form-group">
                       <label class="sr-only" for="inputFirstName">Nombre</label>
-                      <input type="text" class="form-control" id="inputFirstName" placeholder="Nombre">
+                      <input type="text" class="form-control" name="cliente.nome" id="inputFirstName" placeholder="Nombre">
                     </div>
                     <div class="form-group">
                       <label class="sr-only" for="inputEmail">Email</label>
-                      <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                      <input type="email" class="form-control" name="cliente.email" id="inputEmail" placeholder="Email">
                     </div>
                     <div class="form-group">
                       <label class="sr-only" for="inputPhone">Tel&eacute;fono</label>
-                      <input type="text" class="form-control" id="inputPhone" placeholder="Tel&eacute;fono">
+                      <input type="text" class="form-control" name="cliente.telefone" id="inputPhone" placeholder="Tel&eacute;fono">
                     </div>
                     <div class="form-group">
                       <label class="sr-only" for="inputCountry">Pa&iacute;s</label>
-                      <input type="text" class="form-control" id="inputCountry" placeholder="Pa&iacute;s">
+                      <input type="text" class="form-control" name="cliente.pais" id="inputCountry" placeholder="Pa&iacute;s">
                     </div>
                     <div class="form-group">
                       <label class="sr-only" for="inputCity">Ciudad</label>
-                      <input type="text" class="form-control" id="inputCity" placeholder="Ciudad">
+                      <input type="text" class="form-control" name="cliente.cidade" id="inputCity" placeholder="Ciudad">
                     </div>
                     <button type="submit" class="btn btn-primary">Enviar</button>
                   </form>

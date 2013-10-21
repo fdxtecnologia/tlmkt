@@ -6,6 +6,71 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../template/header.jsp" %>
+<script type="text/javascript">
+    $(document).ready(function(){
+       $("#form-cliente").submit(function(event){
+          var data = $("#form-cliente").serialize();
+          $.ajax({
+            type: "POST",
+            url: "<c:url value="/cliente/save"/>",
+            data: data,
+            success: function(response){
+                if(response === "erro"){
+                    $("#alertModalCliente").show();
+                }else{
+                    $("#alertModalCliente").hide();
+                    $('#modalCliente').modal('hide');
+                    
+                    var cliente = response;
+                    var buttonEdit = "<button onclick='editCustomer(" + cliente.id + ")' type='button' class='btn btn-default'><span class='glyphicon glyphicon-edit' ></span></button>";
+                    var buttonRemove = "<button onclick='confirmRemoveCustomer(" + cliente.id + ")' type='button' class='btn btn-default'><span class='glyphicon glyphicon-remove' ></span></button>";
+
+                    var td = "<td>" + cliente.id + "</td>"
+                            + "<td>" + cliente.email + "</td>"
+                            + "<td>" + cliente.nome + "</td>"
+                            + "<td>" + cliente.tipoCliente + "</td>"
+                            + "<td>" + buttonEdit + "</td>"
+                            + "<td>" + buttonRemove + "</td>";
+                    var tr = $("<tr>").append(td);
+                    $("#table-clientes").append(tr);                     
+                }
+            }
+          });
+          event.preventDefault();
+       });
+     });
+     
+    function editCustomer(id){ 
+       $.ajax({
+             type: "POST",
+             url: "<c:url value="/cliente/load/" />"+id,
+             data: "",
+             success: function(response){
+               var cliente = response;
+                
+               document.getElementById("id").value = cliente.id;
+               document.getElementById("email").value = cliente.email;
+               document.getElementById("nome").value = cliente.nome;
+               document.getElementById('tipo').value=cliente.tipoCliente;
+               
+               $("#modalCliente").modal('show');
+            }
+         });
+     }
+     
+     function confirmRemoveCustomer(id){
+          $.ajax({
+             type: "POST",
+             url: "<c:url value="/cliente/remove/" />"+id,
+             data: "",
+             success: function(response){
+               if(response === "ok"){
+                   $("#cli"+id).remove();
+                }
+             }
+         });
+     }
+</script>
 <div id="list-customers">
     <h2>Clientes</h2>
     <div class='panel panel-busca panel-default'>
@@ -24,61 +89,59 @@
         <thead>
             <tr>
                 <th><fmt:message key="campo.id" /></th>
-                <th><fmt:message key="campo.nome" /></th>
-                <th><fmt:message key="campo.login" /></th>
-                <th><fmt:message key="campo.editar" /></th>
+                <th><fmt:message key="campo.email" /></th>
+                <th><fmt:message key="campo.name" /></th>
+                <th><fmt:message key="campo.tipoCliente" /></th>
                 <th><fmt:message key="campo.excluir" /></th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${lista}" var="usuario">
-                <tr>
-                    <td>${usuario.id}</td>
-                    <td>${usuario.nome}</td>
-                    <td>${usuario.login}</td>
-                    <td><button onclick='editUser(${usuario.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-edit' ></span></button></td>
-                    <td><button onclick='confirmRemoveUser(${usuario.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-remove' ></span></button></td>
+            <c:forEach items="${clientes}" var="cliente">
+                <tr id="cli${cliente.id}">
+                    <td>${cliente.id}</td>
+                    <td>${cliente.email}</td>
+                    <td>${cliente.nome}</td>
+                    <td>${cliente.tipoCliente}</td>
+                    <td><button onclick='editCustomer(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-edit' ></span></button></td>
+                    <td><button onclick='confirmRemoveCustomer(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-remove' ></span></button></td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
 </div>
-<a class="btn btn-primary" data-toggle="modal" href="#modalUsuario" onClick="$('#modalUsuario input').val('');
+<a class="btn btn-primary" data-toggle="modal" href="#modalCliente" onClick="$('#modalCliente input').val('');
         return true;"><fmt:message key="label.adicionar" /></a>
 
-<div class="modal fade" id="modalUsuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><fmt:message key="title.modal.usuario" /></h4>
+                <h4 class="modal-title"><fmt:message key="title.modal.cliente" /></h4>
             </div>
-            <form role="form" id="form-usuario">
+                <form role="form" id="form-cliente">
                 <div class="modal-body">
-                    <input type="hidden" name="usuario.id" />
+                    <input type="hidden" id="id" name="cliente.id" value="${clienteLoaded.id}" />
+                    <div class="form-group">
+                        <label for="email"><fmt:message key="campo.email" /></label>
+                        <input type="email" class="form-control" id="email" name="cliente.email" value="${clienteLoaded.email}" placeholder="<fmt:message key="placeholder.email" />" required />
+                    </div>
                     <div class="form-group">
                         <label for="nome"><fmt:message key="campo.nome" /></label>
-                        <input type="text" class="form-control" id="nome" name="usuario.nome" placeholder="<fmt:message key="placeholder.nome" />" required />
+                        <input type="text" class="form-control" id="nome" name="cliente.nome" value="${clienteLoaded.nome}" placeholder="<fmt:message key="placeholder.nome" />" required />
                     </div>
                     <div class="form-group">
-                        <label for="login"><fmt:message key="campo.login" /></label>
-                        <input type="text" class="form-control" id="login" name="usuario.login" placeholder="<fmt:message key="placeholder.email" />" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="senha"><fmt:message key="campo.senha" /></label>
-                        <input type="password" class="form-control" id="senha" name="usuario.senha" placeholder="<fmt:message key="placeholder.senha" />" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="confirmarsenha"><fmt:message key="campo.confirmarsenha" /></label>
-                        <input type="password" class="form-control" id="confirmarsenha" placeholder="<fmt:message key="placeholder.senha" />" required validationMessage />
-                    </div>
-                    <div class="form-group">
-                        <label for="tipo"><fmt:message key="campo.tipo" /></label>
-                        <select class="form-control" name="usuario.tipo">
-                            <option value="USUARIO"><fmt:message key='input.tipousuario.usuario' /></option>
-                            <option value="ADMIN"><fmt:message key='input.tipousuario.admin' /></option>
+                        <label for="tipo"><fmt:message key="campo.tipoCliente" /></label>
+                        <select class="form-control" id="tipo" name="cliente.tipoCliente">
+                            <option value="LEAD"><fmt:message key='input.tipocliente.lead' /></option>
+                            <option value="POTENCIAL"><fmt:message key='input.tipocliente.potencial' /></option>
+                            <option value="FIXO"><fmt:message key='input.tipocliente.fixo' /></option>
                         </select>
                     </div>
+                    <div class="alert alert-warning fade in" id="alertModalCliente" hidden>
+                        <button type="button" class="close" onclick="$('#alertModalCliente').hide()">&times;</button>
+                        <strong><fmt:message key="erro.cliente.title" /></strong> <fmt:message key="erro.cliente.message" />
+                    </div>    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="action.fechar" /></button>

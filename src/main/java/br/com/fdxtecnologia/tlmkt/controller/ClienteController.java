@@ -5,6 +5,7 @@
 package br.com.fdxtecnologia.tlmkt.controller;
 
 import br.com.caelum.vraptor.Path;
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
@@ -34,22 +35,46 @@ public class ClienteController {
         result.include("clientes", list);
     }
     
+    @Post
     public void save(Cliente cliente){
-        cliente.setTipoCliente(TipoCliente.LEAD);
-        if (cliente.getId() != null) {
-            dao.update(cliente);
-        } else {
-            dao.add(cliente);
+        boolean isRepeated = false;
+        List<Cliente> list = dao.findAll();
+        for(Cliente c: list){
+            if(c.getEmail().equals(cliente.getEmail())){
+                isRepeated = true;
+            }
         }
-        result.use(Results.http()).body("ok");
+        if(cliente.getId() != null && isRepeated == false){
+           dao.update(cliente);
+           result.use(Results.json()).withoutRoot().from(cliente).serialize();
+        }else if(isRepeated == false && cliente.getId() == null){
+            if(cliente.getTipoCliente() == null){
+               cliente.setTipoCliente(TipoCliente.LEAD);
+            }
+            dao.add(cliente);
+            result.use(Results.json()).withoutRoot().from(cliente).serialize();
+        }else{
+            result.use(Results.http()).body("erro");
+        }
     }
     
-    @Path("/edit/{id}")
-    public void edit(Long id) {
+    @Post("/remove/{id}")
+    public void remove(Long id){
+        Cliente c = dao.findById(id);
+        if(c !=null){
+           dao.delete(c);
+           result.use(Results.http()).body("ok");
+        }else{
+           result.use(Results.http()).sendError(500, "Cliente inexistente");
+        }
+    }
+    
+    @Post("/load/{id}")
+    public void load(Long id) {
         Cliente c = dao.findById(id);
         if (c != null) {
-            result.include("cliente",c);
-            result.use(Results.json()).from(c).serialize();
+            result.include("clienteLoaded",c);
+            result.use(Results.json()).withoutRoot().from(c).serialize();
         } else {
             result.use(Results.http()).sendError(500, "Cliente inexistente");
         }

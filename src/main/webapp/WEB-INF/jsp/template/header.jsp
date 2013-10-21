@@ -13,7 +13,7 @@
         <!-- Bootstrap -->
         <link href="/tlmkt/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="//code.jquery.com/jquery.js"></script>
+        <script src="/tlmkt/js/jquery.js"></script>
         <script src="/tlmkt/js/layout.js"></script>
         <title>TLMKT</title>
         <style type="text/css">

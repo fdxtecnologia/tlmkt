@@ -4,6 +4,7 @@
  */
 package br.com.fdxtecnologia.tlmkt.model;
 
+import br.com.fdxtecnologia.tlmkt.login.Public;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
