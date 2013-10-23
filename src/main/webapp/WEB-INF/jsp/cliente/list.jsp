@@ -12,7 +12,7 @@
           var data = $("#form-cliente").serialize();
           $.ajax({
             type: "POST",
-            url: "<c:url value="/cliente/save"/>",
+            url: '<c:url value="/cliente/save"/>',
             data: data,
             success: function(response){
                 if(response === "erro"){

@@ -46,21 +46,41 @@ public class UsuarioController {
             result.use(Results.http()).sendError(500, "Cliente inexistente");
         }
     }
-    
+
+    @Path("/add")
+    public void add() {
+    }
+
+    @Path("/edit/{id}")
+    public void edit(Long id) {
+        Usuario u = dao.findById(id);
+        if (u != null) {
+            result.include("usuario", u);
+        } else {
+            result.include("message", "Usuario inexistente");
+            result.forwardTo(UsuarioController.class).list();
+        }
+    }
+
     @Path("/buscar")
     @Post
-    public void buscar(String busca){
+    public void buscar(String busca) {
         List<Usuario> usuarios = dao.findByQuery(busca);
         result.use(Results.json()).withoutRoot().from(usuarios).serialize();
     }
-    
+
     @Post
     public void save(Usuario usuario) {
         if (usuario.getId() != null) {
-            dao.update(usuario);
+            Usuario u = dao.findById(usuario.getId());
+            u.setNome(usuario.getNome());
+            u.setLogin(usuario.getLogin());
+            u.setTipo(usuario.getTipo());
+            dao.update(u);
         } else {
             dao.add(usuario);
         }
-        result.use(Results.http()).body("ok");
+        result.include("success",true);
+        result.forwardTo(UsuarioController.class).list();
     }
 }
