@@ -43,16 +43,24 @@
     </head>
     <body>
         <div id="wrap">
-            <c:if test="${userSession.user ne null}">
+            <c:if test="${userSession.user eq null}">
                 <div class="header">
                     <nav class="navbar navbar-default" role="navigation">
                         <!-- Brand and toggle get grouped for better mobile display -->
                         <div class="navbar-header">
                             <a class="navbar-brand" href="#">Tlmkt</a>
                             <ul class="nav navbar-nav">
-                                <li><a href='#'><fmt:message key="link.usuarios" /></a></li>
-                                <li><a href='#'><fmt:message key="link.clientes" /></a></li>
-                                <li><a href='#'><fmt:message key="link.relatorios" /></a></li>
+                                <li><a href='<c:url value="/usuario/list" />'>><fmt:message key="link.usuarios" /></a></li>
+                                <li><a href='<c:url value="/cliente/list" />'><fmt:message key="link.clientes" /></a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="<c:url value="/report/show/lead/1" />"><fmt:message key="label.relatorio.leads" /></a></li>
+                                        <li><a href="<c:url value="/report/show/potencial/1" />"><fmt:message key="label.relatorio.potencial" /></a></li>
+                                        <li><a href="<c:url value="/report/show/fixo/1" />"><fmt:message key="label.relatorio.fixo" /></a></li>
+                                        <li><a href="<c:url value="/report/show/semResposta/1" />"><fmt:message key="label.relatorio.semresposta" /></a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </nav>

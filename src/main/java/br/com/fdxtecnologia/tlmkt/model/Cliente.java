@@ -5,12 +5,15 @@
 package br.com.fdxtecnologia.tlmkt.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 /**
@@ -41,6 +44,8 @@ public class Cliente implements Serializable {
     private String disposicao;
     private String quantiaMaxima;
     private String ativos;
+    @Temporal(TemporalType.DATE)
+    private Date dataEnvioEmail;
 
     public Long getId() {
         return id;
@@ -168,5 +173,13 @@ public class Cliente implements Serializable {
 
     public void setInformacoesAdicionais(String informacoesAdicionais) {
         this.informacoesAdicionais = informacoesAdicionais;
+    }
+
+    public Date getDataEnvioEmail() {
+        return dataEnvioEmail;
+    }
+
+    public void setDataEnvioEmail(Date dataEnvioEmail) {
+        this.dataEnvioEmail = dataEnvioEmail;
     }
 }

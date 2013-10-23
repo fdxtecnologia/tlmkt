@@ -92,13 +92,13 @@ public class ClienteController {
     }
 
     @Post
-    public void saveClienteMailing(Cliente cliente, String captcha ) {
+    public void saveClienteMailing(Cliente cliente) {
         Cliente c = dao.getClientByEmailHash(cliente.getHashForm());
-        if(c != null){
+        if (c != null) {
             cliente.setId(c.getId());
             dao.update(cliente);
         } else {
-            
+            dao.add(cliente);
         }
         result.forwardTo(ClienteController.class).formMailing();
     }
