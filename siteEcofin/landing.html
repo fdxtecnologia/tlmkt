@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Ecofin - Contacto</title>
+    <title>Ecofin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Html5TemplatesDreamweaver.com">
@@ -36,7 +36,6 @@
     <link href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css">
 
     <link href="styles/custom.css" rel="stylesheet" type="text/css" />
-    <script src="email/validation.js" type="text/javascript"></script>
 </head>
 <body id="pageBody">
 
@@ -51,41 +50,15 @@
                     <div id="divLogo" class="pull-left">
                         <a href="index.html" id="divSiteTitle"><img src="images/logo.png" alt="Ecofin" title="Ecofin: Asesores de Inversión" /></a>
                     </div>
-
-  					<div id="divMenuRight" class="pull-right">
-                    <div class="navbar">
-                        <button type="button" class="btn btn-navbar-highlight btn-large btn-secondary" data-toggle="collapse" data-target=".nav-collapse">
-                            NAVEGACIÓN <span class="icon-chevron-down icon-white"></span>
-                        </button>
-                        <div class="nav-collapse collapse">
-                            <ul class="nav nav-pills ddmenu">
-                            <li><a href="index.html">Home</a></li>
-							<li class="dropdown">
-                            <a href="empresa.html" class="dropdown-toggle">Empresa</a>
-                            <li class="dropdown">
-                            <a href="inversiones.html" class="dropdown-toggle">Inversiones</a>
-                                <ul class="dropdown-menu">
-                                <li><a href="inversiones-cfd.html">CFD</a></li>
-                                <li><a href="inversiones-fondos.html">Fondos de Inversión</a></li>
-                                <li><a href="inversiones-offshore.html">Offshore</a></li>
-                                <li><a href="inversiones-family.html">Family office</a></li>
-                                <li><a href="inversiones-jubilacion.html">Jubilación</a></li>
-                            	</li>
-                            </ul>
-                            <li class="dropdown">
-                            <a href="regulacion.html" class="dropdown-toggle">Regulación</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="regulacion-mercado.html">SMVP</a></li>
-                                <li><a href="regulacion-brokers.html">Brokers</a></li>
-                                </li>
-                            </ul>
-						    <li class="active"><a href="contacto.php">Contacto</a></li>
-                            <li><a href="eventos.html">Eventos</a></li>
-                            </ul>
-                            </div>
-                        </div>
-                    </div>
-
+					 <div id="divLogo" class="pull-right">
+                        <ul id="contact-info">
+                            <li id="top">                  
+                                <i class="general foundicon-phone icon"></i>
+                                <span class="fieldtop">Phone: +507 282 0800</span>
+                                <br />
+                            </li>
+                        </ul>
+					</div>
                 </div>
             </div>
 
@@ -99,65 +72,78 @@
     <div class="contentArea">
 
         <div class="divPanel notop page-content">
-
-            <div class="breadcrumbs">
-                <a href="index.html">Home</a> &nbsp;/&nbsp; <span>Contacto</span>
-            </div>
+            <!--Edit Portfolio Content Area here-->
+         	 <div class="jumbotron">
+         		<div class="row-fluid" id="banner" style="background-image:url(images/500px-33918005.jpg)">
+              	<div class="span7"></div>
+                <div class="span4" style="background-color:#C01C25; border-radius:5px;">
+                  <!--<h2>Formulario</h2>-->
+                        <form action="http://localhost:8080/tlmkt/cliente/save" method="POST" style="margin:30px;">
+                            <div class="form-group">
+                                <label class="sr-only" for="inputFirstName">Nombre</label>
+                                <input type="text" class="form-control span12" name="cliente.nome" id="inputFirstName" placeholder="Nombre">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="inputEmail">Email</label>
+                                <input type="email" class="form-control span12" name="cliente.email" id="inputEmail" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="inputPhone">Tel&eacute;fono</label>
+                                <input type="text" class="form-control span12" name="cliente.telefone" id="inputPhone" placeholder="Tel&eacute;fono">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="inputCountry">Pa&iacute;s</label>
+                                <input type="text" class="form-control span12" name="cliente.pais" id="inputCountry" placeholder="Pa&iacute;s">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="inputCity">Ciudad</label>
+                                <input type="text" class="form-control span12" name="cliente.cidade" id="inputCity" placeholder="Ciudad">
+                            </div>
+                            <button type="submit" class="btn btn-danger">Enviar</button>
+                        </form>
+              		</div>
+         		</div>
+    </div>
+            <hr>	
             <div class="row-fluid">
-                <div class="span8" id="divMain">
-                <h1>Contacto</h1>
-                   	<h3 style="color:#FF6633;"><?php echo @$_GET['msg'];?></h3>
-					<hr>
-			<!--Start Contact form -->		                                                
-<form name="enq" method="post" action="email/" onsubmit="return validation();">
-  <fieldset>
-    
-	<input type="text" name="name" id="name" value=""  class="input-block-level" placeholder="Nombre" />
-    <input type="text" name="email" id="email" value="" class="input-block-level" placeholder="Email" />
-    <textarea rows="11" name="message" id="message" class="input-block-level" placeholder="Mensaje"></textarea>
-    <div class="actions">
-	<input type="submit" value="Enviar" name="submit" id="submitButton" class="btn btn-secondary pull-right" title="Hás click para enviar!" />
-	</div>
-	
-	</fieldset>
-</form>  				 
-			<!--End Contact form -->											 
+                <div class="span12">
+            <div class="yoxview">
+		  <div class="row-fluid">
+            <ul class="thumbnails">
+              <li class="span3">
+                <div class="thumbnail">
+                  <a href="portfolio/preview-300.png"><img src="portfolio/300x200.png" alt="Thumbnail Placeholder" title="Hemos firmado un acuerdo de representación con el broker más premiado internacionalmente en 2013. Tendrá acceso a los mejores spreads y comisiones del mercado, agregado al mejor asesoramiento financiero de Latinoamérica."/></a>
                 </div>
-				
-			<!--Edit Sidebar Content here-->	
-                <div class="span4 sidebar">
+              </li>
+              <li class="span3">
+                <div class="thumbnail">
+                  <a href="portfolio/preview-300.png"><img src="portfolio/300x200.png" alt="Thumbnail Placeholder" title="Solamente con los CFDs podrá aprovecharse en cualquier tendencias de mercado, tanto a la baja cuanto al alza."/></a>
+                </div>
+              </li>
+              <li class="span3">
+                <div class="thumbnail">
+                  <a href="portfolio/preview-300.png"><img src="portfolio/300x200.png" alt="Thumbnail Placeholder" title="Negocia CFDs sobre acciones, futuros, índices y metales preciosos en una sola cuenta Sácale provecho a la negociación de bajo margen y costo. Nuestras herramientas gratuitas de análisis te ayudarán a tomar decisiones mejor informadas en tus negociaciones con CFDs."/></a>
+                </div>
+              </li>
+			  <li class="span3">
+                <div class="thumbnail">
+                  <a href="portfolio/preview-300.png"><img src="portfolio/300x200.png" alt="Thumbnail Placeholder" title="Estará cubierto por dos reguladores de mercado, tanto en Europa como en Latinoamérica. Garantía de servicio de primer nível en su propio país."/></a>
+                </div>
+              </li>
+            </ul>
+			</div>
+          </div>
 
-                    <div class="sidebox">
-                        <h3 class="sidebox-title">Información</h3>
-                    <p>
-                        <address><strong>Ecofin: Asesores de Inversión</strong><br />
-                        Direcciones<br />
-                        Panamá<br/>Casa Matriz<br /><br />Calle Aquilino de la Guardia, Torre Banesco<br />Edificio Ocean Business Plaza, Marbella<br />Oficina 2402, Piso 24<br />Ciudad de Panamá, Panamá<br /><abbr title="Phone">Tel:</abbr>+507 282 0800<br />Fax: +507 264 0351
-                        </address> 
-                        <address>  <strong>Email</strong><br />
-                        <a href="mailto:administración@ecofincapital.com">administración@ecofincapital.com</a></address>  
-                    </p>     
-                    					
-                    </div>
-					
-					
-                    
                 </div>
-			<!--/End Sidebar Content-->
-				
-				
+                
             </div>
-                <div class="row-fluid">
-            	<div class="span12">
-                        <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps?t=m&amp;q=Edificio+Ocean+Business+Plaza+(Torre+Banesco),+Calle+47,+Panam%C3%A1,+San+Miguelito,+Panam%C3%A1,+Panama&amp;ie=UTF8&amp;hl=pt&amp;geocode=Fcr5iAAd5JNC-w&amp;split=0&amp;hq=&amp;hnear=Edificio+Ocean+Business+Plaza+(Torre+Banesco),+Calle+47,+Panam%C3%A1,+San+Miguelito,+Panam%C3%A1,+Panama&amp;ll=8.988514,-79.519558&amp;spn=0.029672,0.036478&amp;z=14&amp;iwloc=A&amp;output=embed" class="img-polaroid" style="margin:5px 0px 15px;color:#0000FF;" ></iframe><br />
-                </div>
-            </div>			
+			<!--/End Portfolio Content Area-->
 
             <div id="footerInnerSeparator"></div>
         </div>
     </div>
 
- <div id="footerOuterSeparator"></div>
+    <div id="footerOuterSeparator"></div>
 
     <div id="divFooter" class="footerArea">
 
@@ -168,31 +154,14 @@
                 
                     <h3>Empresa</h3>
 
-                    <p style="text-align:justify;">Ecofin Asesores de Inversión fue fundada por un grupo de expertos en el mercado financiero. Tanto los socios, como el grupo de analistas financieros que incorporan el Departamento de Análisis y Estrategias son titulados por importantes universidades y han vivido el día a día de la mesa de operaciones de bancos y brokers en muchas partes del mundo.</p>
+                    <p style="text-align:justify;"	>Ecofin Asesores de Inversión fue fundada por un grupo de expertos en el mercado financiero. Tanto los socios, como el grupo de analistas financieros que incorporan el Departamento de Análisis y Estrategias son titulados por importantes universidades y han vivido el día a día de la mesa de operaciones de bancos y brokers en muchas partes del mundo.</p>
                     
                     <p> 
-                        <a href="empresa.html" title="Empresa">Mission/ Vision</a><br />
+                        <a href="empresa.html" title="empresa">Mission/ Vision</a><br />
                     </p>
 
                 </div>
                 <div class="span3" id="footerArea2">
-
-                    <h3>Inversiones</h3> 
-                    <p>
-                        <a href="inversiones-cfd.html" title="CFD">CFD</a><br />
-                    </p>
-                    <p>
-                        <a href="inversiones-fondos.html" title="Fondos de inversión">Fondos de inversión</a><br />
-                    </p>
-                    <p>
-                        <a href="inversiones-offshore.html" title="Offshore">Offshore</a><br />
-                    </p>
-                    <p>
-                        <a href="inversiones-family.html" title="Family Office">Family Office</a>
-                    </p>
-                    <p>
-                        <a href="inversiones-jubilacion.html" title="Jubilación">Jubilación</a>
-                    </p>
 
                 </div>
                 <div class="span3" id="footerArea3">
@@ -256,7 +225,6 @@
     </div>
 </div>
 <br /><br /><br />
-
 
 <script src="scripts/jquery.min.js" type="text/javascript"></script> 
 <script src="scripts/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
