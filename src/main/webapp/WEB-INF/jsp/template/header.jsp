@@ -43,7 +43,7 @@
     </head>
     <body>
         <div id="wrap">
-            <c:if test="${userSession.user eq null}">
+            <c:if test="${userSession.user ne null}">
                 <div class="header">
                     <nav class="navbar navbar-default" role="navigation">
                         <!-- Brand and toggle get grouped for better mobile display -->
@@ -61,6 +61,7 @@
                                         <li><a href="<c:url value="/report/show/semResposta/1" />"><fmt:message key="label.relatorio.semresposta" /></a></li>
                                     </ul>
                                 </li>
+                                <li><a href='<c:url value="/login/logout" />'><fmt:message key="link.logout" /></a></li>
                             </ul>
                         </div>
                     </nav>

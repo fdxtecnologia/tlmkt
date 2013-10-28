@@ -7,12 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../template/header.jsp" %>
 <style type="text/css">
-    body {
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background-color: #eee;
-    }
-
     .form-signin {
         max-width: 330px;
         padding: 15px;
@@ -48,13 +42,16 @@
         border-top-right-radius: 0;
     }
 </style>
-<form class="form-signin">
+
+<form class="form-signin" method="POST" action="<c:url value='/login/doLogin' />">
     <h2 class="form-signin-heading">Please sign in</h2>
-    <input type="text" class="form-control" placeholder="Email address" autofocus>
-    <input type="password" class="form-control" placeholder="Password">
-    <label class="checkbox">
-        <input type="checkbox" value="remember-me"> Remember me
-    </label>
+    <c:if test="${message}">
+        <div class="alert alert-danger">
+            <fmt:message key="erro.login"></fmt:message>
+            </div>
+    </c:if>
+    <input type="text" class="form-control" placeholder="Email address" name="login" autofocus required>
+    <input type="password" class="form-control" placeholder="Password" name="senha" required>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 </form>
 <%@include file="../template/footer.jsp" %>

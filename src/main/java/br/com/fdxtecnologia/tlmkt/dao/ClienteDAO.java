@@ -7,9 +7,11 @@ package br.com.fdxtecnologia.tlmkt.dao;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.fdxtecnologia.tlmkt.model.Cliente;
 import br.com.fdxtecnologia.tlmkt.model.TipoCliente;
+import java.util.Calendar;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -36,15 +38,49 @@ public class ClienteDAO extends GenericDAO<Cliente> {
             Object[] response = new Object[2];
             Criteria c = session.createCriteria(Cliente.class);
             c.add(Restrictions.eq("tipoCliente", tipo));
-            c.setFirstResult((pagina - 1) * 30);
-            c.setMaxResults(30);
+            if (pagina != 0) {
+                c.setFirstResult((pagina - 1) * 30);
+                c.setMaxResults(30);
+            }
             response[0] = (List<Cliente>) c.list();
             //Count para paginação
-            response[1] = (
-                (Long) session.createQuery("select count(id) from Cliente where tipoCliente = '"+tipo+"'")
-                    .iterate()
-                    .next()
-            ).longValue();
+            if (pagina > 0) {
+                response[1] = ((Long) session.createQuery("select count(id) from Cliente where tipoCliente = '" + tipo + "'")
+                        .iterate()
+                        .next()).longValue();
+            } else {
+                response[1] = 0;
+            }
+            return response;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Object[] getClientesSemResposta(int pagina) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DATE, -3);
+
+        try {
+            Object[] response = new Object[2];
+            Criteria c = session.createCriteria(Cliente.class);
+            c.add(Restrictions.eq("tipoCliente", TipoCliente.LEAD));
+            c.add(Restrictions.le("dataEnvioEmail", cal.getTime()));
+            if (pagina != 0) {
+                c.setFirstResult((pagina - 1) * 30);
+                c.setMaxResults(30);
+            }
+            response[0] = (List<Cliente>) c.list();
+            //Count para paginação
+
+            if (pagina > 0) {
+                Query query = session.createQuery("select count(id) from Cliente where tipoCliente = 'LEAD' and dataEnvioEmail < :dataEnvio");
+                query.setParameter("dataEnvio", cal.getTime());
+                response[1] = ((Long) query.iterate().next()).longValue();
+            } else {
+                response[1] = 0;
+            }
             return response;
         } catch (HibernateException e) {
             e.printStackTrace();

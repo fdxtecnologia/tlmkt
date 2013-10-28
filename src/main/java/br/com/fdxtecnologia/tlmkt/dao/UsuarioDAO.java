@@ -6,9 +6,10 @@ package br.com.fdxtecnologia.tlmkt.dao;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.fdxtecnologia.tlmkt.model.Usuario;
+import br.com.fdxtecnologia.tlmkt.utils.CryptoUtils;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -23,11 +24,10 @@ public class UsuarioDAO extends GenericDAO<Usuario> {
         super(session);
     }
 
-    public Usuario getUserByCredentials(String login, String senha) {
-        Query q = session.createQuery("from Usuario where login = :login and senha = :senha");
-        q.setParameter("login", login);
-        q.setParameter("senha", senha);
-        Usuario u = (Usuario) q.uniqueResult();
+    public Usuario getUserByCredentials(String login, String senha) throws NoSuchAlgorithmException {
+        Criteria c = session.createCriteria(Usuario.class);
+        c.add(Restrictions.eq("login", login)).add(Restrictions.eq("senha", CryptoUtils.sha1(senha)));
+        Usuario u = (Usuario) c.uniqueResult();
         return u;
     }
 

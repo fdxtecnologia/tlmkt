@@ -5,6 +5,7 @@
 package br.com.fdxtecnologia.tlmkt.login;
 
 import br.com.caelum.vraptor.InterceptionException;
+import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
@@ -42,14 +43,13 @@ public class LoginInterceptor implements Interceptor {
 
     @Override
     public void intercept(InterceptorStack is, ResourceMethod rm, Object o) throws InterceptionException {
+        Permission methodPermission = rm.getMethod().getAnnotation(Permission.class);
 
-        if (!userSession.isLogged()) {
+        Permission controllerPermission = rm.getResource().getType().getAnnotation(Permission.class);
+
+        if (!userSession.isLogged() && (hasAccess(methodPermission) && hasAccess(controllerPermission))) {
             result.redirectTo(LoginController.class).login();
         } else {
-            Permission methodPermission = rm.getMethod().getAnnotation(Permission.class);
-
-            Permission controllerPermission = rm.getResource().getType().getAnnotation(Permission.class);
-
             if (hasAccess(methodPermission) && hasAccess(controllerPermission)) {
                 is.next(rm, o);
             } else {

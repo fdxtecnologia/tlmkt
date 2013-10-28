@@ -8,11 +8,20 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.simplemail.Mailer;
+import br.com.caelum.vraptor.simplemail.template.TemplateMailer;
 import br.com.caelum.vraptor.view.Results;
 import br.com.fdxtecnologia.tlmkt.dao.ClienteDAO;
+import br.com.fdxtecnologia.tlmkt.login.Permission;
 import br.com.fdxtecnologia.tlmkt.model.Cliente;
 import br.com.fdxtecnologia.tlmkt.model.TipoCliente;
+import br.com.fdxtecnologia.tlmkt.model.TipoUsuario;
+import br.com.fdxtecnologia.tlmkt.utils.CryptoUtils;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
 
 /**
  *
@@ -20,14 +29,19 @@ import java.util.List;
  */
 @Resource
 @Path("/cliente")
+@Permission({TipoUsuario.ADMIN, TipoUsuario.USUARIO})
 public class ClienteController {
 
     private Result result;
     private ClienteDAO dao;
+    private Mailer mailer;
+    private final TemplateMailer templates;
 
-    public ClienteController(Result result, ClienteDAO dao) {
+    public ClienteController(Result result, ClienteDAO dao, Mailer mailer, TemplateMailer templates) {
         this.result = result;
         this.dao = dao;
+        this.mailer = mailer;
+        this.templates = templates;
     }
 
     public void list() {
@@ -101,5 +115,29 @@ public class ClienteController {
             dao.add(cliente);
         }
         result.forwardTo(ClienteController.class).formMailing();
+    }
+
+    @Post
+    public void enviarEmailCliente(Long id)  throws NoSuchAlgorithmException {
+        Cliente cliente = dao.findById(id);
+        if (cliente != null) {
+
+            if (cliente.getHashForm() == null) {
+                cliente.setHashForm(CryptoUtils.sha1(new Date().getTime()));
+                cliente.setDataEnvioEmail(new Date());
+                dao.update(cliente);
+            }
+            try {
+                Email email = this.templates
+                        .template("templateMailing")
+                        .with("cliente", cliente)
+                        .to(cliente.getNome(), cliente.getEmail());
+                email.setFrom("no-responda@ecofincapital.com", "Ecofin");
+                email.setSubject("Nos Gustaria Saber más sobre usted!");
+                mailer.send(email);
+            } catch (EmailException e) {
+            }
+            result.of(Results.http()).body(cliente.getEmail());
+        }
     }
 }

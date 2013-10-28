@@ -15,7 +15,7 @@ import br.com.fdxtecnologia.tlmkt.login.UserSession;
  */
 @Resource
 public class HomeController {
-    
+
     private Result result;
     private UserSession userSession;
 
@@ -23,10 +23,8 @@ public class HomeController {
         this.result = result;
         this.userSession = userSession;
     }
-    
-    @Path("")
-    public void index(){
-        
+
+    @Path("/home")
+    public void index() {
     }
-    
 }

@@ -7,69 +7,86 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../template/header.jsp" %>
 <script type="text/javascript">
-    $(document).ready(function(){
-       $("#form-cliente").submit(function(event){
-          var data = $("#form-cliente").serialize();
-          $.ajax({
-            type: "POST",
-            url: '<c:url value="/cliente/save"/>',
-            data: data,
-            success: function(response){
-                if(response === "erro"){
-                    $("#alertModalCliente").show();
-                }else{
-                    $("#alertModalCliente").hide();
-                    $('#modalCliente').modal('hide');
-                    
-                    var cliente = response;
-                    var buttonEdit = "<button onclick='editCustomer(" + cliente.id + ")' type='button' class='btn btn-default'><span class='glyphicon glyphicon-edit' ></span></button>";
-                    var buttonRemove = "<button onclick='confirmRemoveCustomer(" + cliente.id + ")' type='button' class='btn btn-default'><span class='glyphicon glyphicon-remove' ></span></button>";
+    $(document).ready(function() {
+        $("#form-cliente").submit(function(event) {
+            var data = $("#form-cliente").serialize();
+            $.ajax({
+                type: "POST",
+                url: '<c:url value="/cliente/save"/>',
+                data: data,
+                success: function(response) {
+                    if (response === "erro") {
+                        $("#alertModalCliente").show();
+                    } else {
+                        $("#alertModalCliente").hide();
+                        $('#modalCliente').modal('hide');
 
-                    var td = "<td>" + cliente.id + "</td>"
-                            + "<td>" + cliente.email + "</td>"
-                            + "<td>" + cliente.nome + "</td>"
-                            + "<td>" + cliente.tipoCliente + "</td>"
-                            + "<td>" + buttonEdit + "</td>"
-                            + "<td>" + buttonRemove + "</td>";
-                    var tr = $("<tr>").append(td);
-                    $("#table-clientes").append(tr);                     
+                        var cliente = response;
+                        var buttonEdit = "<button onclick='editCustomer(" + cliente.id + ")' type='button' class='btn btn-default'><span class='glyphicon glyphicon-edit' ></span></button>";
+                        var buttonRemove = "<button onclick='confirmRemoveCustomer(" + cliente.id + ")' type='button' class='btn btn-default'><span class='glyphicon glyphicon-remove' ></span></button>";
+
+                        var td = "<td>" + cliente.id + "</td>"
+                                + "<td>" + cliente.email + "</td>"
+                                + "<td>" + cliente.nome + "</td>"
+                                + "<td>" + cliente.tipoCliente + "</td>"
+                                + "<td>" + buttonEdit + "</td>"
+                                + "<td>" + buttonRemove + "</td>";
+                        var tr = $("<tr>").append(td);
+                        $("#table-clientes").append(tr);
+                    }
+                }
+            });
+            event.preventDefault();
+        });
+    });
+
+    function editCustomer(id) {
+        $.ajax({
+            type: "POST",
+            url: "<c:url value="/cliente/load/" />" + id,
+            data: "",
+            success: function(response) {
+                var cliente = response;
+
+                document.getElementById("id").value = cliente.id;
+                document.getElementById("email").value = cliente.email;
+                document.getElementById("nome").value = cliente.nome;
+                document.getElementById('tipo').value = cliente.tipoCliente;
+
+                $("#modalCliente").modal('show');
+            }
+        });
+    }
+
+    function confirmRemoveCustomer(id) {
+        $.ajax({
+            type: "POST",
+            url: "<c:url value="/cliente/remove/" />" + id,
+            data: "",
+            success: function(response) {
+                if (response === "ok") {
+                    $("#cli" + id).remove();
                 }
             }
-          });
-          event.preventDefault();
-       });
-     });
-     
-    function editCustomer(id){ 
-       $.ajax({
-             type: "POST",
-             url: "<c:url value="/cliente/load/" />"+id,
-             data: "",
-             success: function(response){
-               var cliente = response;
-                
-               document.getElementById("id").value = cliente.id;
-               document.getElementById("email").value = cliente.email;
-               document.getElementById("nome").value = cliente.nome;
-               document.getElementById('tipo').value=cliente.tipoCliente;
-               
-               $("#modalCliente").modal('show');
-            }
-         });
-     }
-     
-     function confirmRemoveCustomer(id){
-          $.ajax({
-             type: "POST",
-             url: "<c:url value="/cliente/remove/" />"+id,
-             data: "",
-             success: function(response){
-               if(response === "ok"){
-                   $("#cli"+id).remove();
+        });
+    }
+
+    function enviarEmail(id) {
+        $.ajax({
+            type: "POST",
+            url: "<c:url value='/cliente/enviarEmailCliente' />",
+            data: "id="+id,
+            success: function(data) {
+                if (data) {
+                    var alerta = "<div class='alert alert-success'>Email enviado com Sucesso</div>";
+                    $("#messages").append(alerta);
+                    setTimeout(function() {
+                        $(".alert").alert("close");
+                    }, 4000);
                 }
-             }
-         });
-     }
+            }
+        });
+    }
 </script>
 <div id="list-customers">
     <h2>Clientes</h2>
@@ -90,8 +107,11 @@
             <tr>
                 <th><fmt:message key="campo.id" /></th>
                 <th><fmt:message key="campo.email" /></th>
-                <th><fmt:message key="campo.name" /></th>
+                <th><fmt:message key="campo.nome" /></th>
                 <th><fmt:message key="campo.tipoCliente" /></th>
+                <th><fmt:message key="campo.dataUltimoEnvio" /></th>
+                <th><fmt:message key="campo.reenviar" /></th>
+                <th><fmt:message key="campo.editar" /></th>
                 <th><fmt:message key="campo.excluir" /></th>
             </tr>
         </thead>
@@ -102,6 +122,8 @@
                     <td>${cliente.email}</td>
                     <td>${cliente.nome}</td>
                     <td>${cliente.tipoCliente}</td>
+                    <td>${cliente.dataEnvioEmail}</td>
+                    <td><button onclick='enviarEmail(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-send' ></span></button></td>
                     <td><button onclick='editCustomer(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-edit' ></span></button></td>
                     <td><button onclick='confirmRemoveCustomer(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-remove' ></span></button></td>
                 </tr>
@@ -112,14 +134,14 @@
 <a class="btn btn-primary" data-toggle="modal" href="#modalCliente" onClick="$('#modalCliente input').val('');
         return true;"><fmt:message key="label.adicionar" /></a>
 
-        <div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title"><fmt:message key="title.modal.cliente" /></h4>
             </div>
-                <form role="form" id="form-cliente">
+            <form role="form" id="form-cliente">
                 <div class="modal-body">
                     <input type="hidden" id="id" name="cliente.id" value="${clienteLoaded.id}" />
                     <div class="form-group">
