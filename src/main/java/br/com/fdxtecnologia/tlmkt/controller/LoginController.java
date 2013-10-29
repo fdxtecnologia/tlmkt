@@ -19,6 +19,7 @@ import java.security.NoSuchAlgorithmException;
  */
 @Resource
 @Path("/login")
+@Public
 public class LoginController {
 
     private Result result;

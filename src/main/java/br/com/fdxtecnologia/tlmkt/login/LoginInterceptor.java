@@ -20,7 +20,7 @@ import java.util.Collection;
  *
  * @author guilherme
  */
-//@Intercepts
+@Intercepts
 public class LoginInterceptor implements Interceptor {
 
     private UserSession userSession;
@@ -43,13 +43,13 @@ public class LoginInterceptor implements Interceptor {
 
     @Override
     public void intercept(InterceptorStack is, ResourceMethod rm, Object o) throws InterceptionException {
-        Permission methodPermission = rm.getMethod().getAnnotation(Permission.class);
-
-        Permission controllerPermission = rm.getResource().getType().getAnnotation(Permission.class);
-
-        if (!userSession.isLogged() && (hasAccess(methodPermission) && hasAccess(controllerPermission))) {
+        if (!userSession.isLogged()) {
             result.redirectTo(LoginController.class).login();
         } else {
+            Permission methodPermission = rm.getMethod().getAnnotation(Permission.class);
+
+            Permission controllerPermission = rm.getResource().getType().getAnnotation(Permission.class);
+
             if (hasAccess(methodPermission) && hasAccess(controllerPermission)) {
                 is.next(rm, o);
             } else {
