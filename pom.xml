@@ -97,6 +97,9 @@
                 <version>7.6.13.v20130916</version>
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <stopPort>8090</stopPort>
+                    <stopKey>fdx_tec_13</stopKey>
+                    <waitForChild>false</waitForChild>
                     <webApp>
                         <contextPath>/tlmkt</contextPath>
                     </webApp>
