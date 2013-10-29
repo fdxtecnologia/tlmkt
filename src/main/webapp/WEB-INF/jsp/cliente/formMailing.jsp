@@ -112,7 +112,7 @@
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="cliente.idade" value="30 a 35 años" required>30 a 35 años
+                                    <input type="radio" name="cliente.idade" value="De 30 a 35 años" required>De 30 a 35 años
                                 </label>
                             </div><div class="radio">
                                 <label>

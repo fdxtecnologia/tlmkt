@@ -16,6 +16,7 @@ import br.com.fdxtecnologia.tlmkt.login.Permission;
 import br.com.fdxtecnologia.tlmkt.model.Cliente;
 import br.com.fdxtecnologia.tlmkt.model.TipoCliente;
 import br.com.fdxtecnologia.tlmkt.model.TipoUsuario;
+import br.com.fdxtecnologia.tlmkt.model.Usuario;
 import br.com.fdxtecnologia.tlmkt.utils.CryptoUtils;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -58,15 +59,15 @@ public class ClienteController {
                 isRepeated = true;
             }
         }
-        if (cliente.getId() != null && isRepeated == false) {
+        if (cliente.getId() != null) {
             dao.update(cliente);
-            result.use(Results.json()).withoutRoot().from(cliente).serialize();
+            result.redirectTo(ClienteController.class).list();
         } else if (isRepeated == false && cliente.getId() == null) {
             if (cliente.getTipoCliente() == null) {
                 cliente.setTipoCliente(TipoCliente.LEAD);
             }
             dao.add(cliente);
-            result.use(Results.json()).withoutRoot().from(cliente).serialize();
+            result.redirectTo(ClienteController.class).list();
         } else {
             result.use(Results.http()).body("erro");
         }
@@ -98,11 +99,26 @@ public class ClienteController {
     public void formMailing() {
         result.include("cliente", new Cliente());
     }
+    
+    @Path("/add")
+    public void add() {
+    }
 
     @Path("/formMailing/{hash}")
     public void formMailing(String hash) {
         Cliente c = dao.getClientByEmailHash(hash);
         result.include("cliente", c);
+    }
+    
+    @Path("/edit/{id}")
+    public void edit(Long id) {
+        Cliente c = dao.findById(id);
+        if (c != null) {
+            result.include("cliente", c);
+        } else {
+            result.include("message", "Usuario inexistente");
+            result.forwardTo(UsuarioController.class).list();
+        }
     }
 
     @Post
