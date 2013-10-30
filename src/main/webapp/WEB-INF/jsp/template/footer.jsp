@@ -4,7 +4,7 @@
 </div><!-- #Wrap -->
 <div id="footer">
     <div class="container">
-        <p class="text-muted credit">footer</p>
+        <p class="text-muted credit">&copy;FdX Tecnologia - 2013</p>
     </div>
 </div><!-- Footer -->
 <!-- Include all compiled plugins (below), or include individual files as needed -->

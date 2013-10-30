@@ -53,7 +53,7 @@ public class LoginInterceptor implements Interceptor {
             if (hasAccess(methodPermission) && hasAccess(controllerPermission)) {
                 is.next(rm, o);
             } else {
-                System.out.println("Permission Denied");
+                result.redirectTo("/tlmkt/denied.jsp");
             }
         }
     }

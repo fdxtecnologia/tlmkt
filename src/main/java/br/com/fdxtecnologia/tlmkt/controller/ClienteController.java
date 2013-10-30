@@ -16,8 +16,8 @@ import br.com.fdxtecnologia.tlmkt.login.Permission;
 import br.com.fdxtecnologia.tlmkt.model.Cliente;
 import br.com.fdxtecnologia.tlmkt.model.TipoCliente;
 import br.com.fdxtecnologia.tlmkt.model.TipoUsuario;
-import br.com.fdxtecnologia.tlmkt.model.Usuario;
 import br.com.fdxtecnologia.tlmkt.utils.CryptoUtils;
+import com.google.common.base.Joiner;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
@@ -59,6 +59,7 @@ public class ClienteController {
                 isRepeated = true;
             }
         }
+        cliente.setAtivos(Joiner.on("|").join(cliente.getListaAtivos()));
         if (cliente.getId() != null) {
             dao.update(cliente);
             result.redirectTo(ClienteController.class).list();
@@ -67,6 +68,7 @@ public class ClienteController {
                 cliente.setTipoCliente(TipoCliente.LEAD);
             }
             dao.add(cliente);
+            result.include("message","ok");
             result.redirectTo(ClienteController.class).list();
         } else {
             result.use(Results.http()).body("erro");
@@ -99,7 +101,7 @@ public class ClienteController {
     public void formMailing() {
         result.include("cliente", new Cliente());
     }
-    
+
     @Path("/add")
     public void add() {
     }
@@ -109,7 +111,7 @@ public class ClienteController {
         Cliente c = dao.getClientByEmailHash(hash);
         result.include("cliente", c);
     }
-    
+
     @Path("/edit/{id}")
     public void edit(Long id) {
         Cliente c = dao.findById(id);
@@ -123,6 +125,7 @@ public class ClienteController {
 
     @Post
     public void saveClienteMailing(Cliente cliente) {
+        cliente.setAtivos(Joiner.on("|").join(cliente.getListaAtivos()));
         Cliente c = dao.getClientByEmailHash(cliente.getHashForm());
         if (c != null) {
             cliente.setId(c.getId());
@@ -134,7 +137,7 @@ public class ClienteController {
     }
 
     @Post
-    public void enviarEmailCliente(Long id)  throws NoSuchAlgorithmException {
+    public void enviarEmailCliente(Long id) throws NoSuchAlgorithmException {
         Cliente cliente = dao.findById(id);
         if (cliente != null) {
 

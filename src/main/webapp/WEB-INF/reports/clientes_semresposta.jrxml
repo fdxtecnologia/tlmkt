@@ -30,6 +30,7 @@
 		<field name="pais" class="java.lang.String"/>
 		<field name="telefone" class="java.lang.String"/>
 		<field name="idade" class="java.lang.String"/>
+		<field name="dataEnvioEmailStr" class="java.lang.String"/>
 	</subDataset>
 	<field name="clientes" class="java.util.List"/>
 	<background>
@@ -42,7 +43,7 @@
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Informe de Clientes]]></text>
+				<text><![CDATA[Informe de Clientes sin respuesta]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -145,14 +146,14 @@
 							<staticText>
 								<reportElement uuid="f06485cc-e90e-48c2-9675-92683cec7159" x="0" y="0" width="90" height="30"/>
 								<textElement/>
-								<text><![CDATA[Edad]]></text>
+								<text><![CDATA[Ultimo Envio]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement uuid="b4fc87df-fced-437f-b221-b4b896a1c310" x="0" y="0" width="90" height="20"/>
+								<reportElement uuid="7cfe07c6-bef4-4c1e-a0b4-80de0a3db3cf" x="0" y="0" width="91" height="20"/>
 								<textElement/>
-								<textFieldExpression><![CDATA[$F{idade}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{dataEnvioEmailStr}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

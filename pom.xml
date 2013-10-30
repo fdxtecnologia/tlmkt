@@ -65,6 +65,11 @@
             <artifactId>javassist</artifactId>
             <version>3.12.1.GA</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.collections</groupId>
+            <artifactId>google-collections</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
@@ -96,7 +101,6 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>7.6.13.v20130916</version>
                 <configuration>
-                    <scanIntervalSeconds>10</scanIntervalSeconds>
                     <stopPort>8090</stopPort>
                     <stopKey>fdx_tec_13</stopKey>
                     <waitForChild>false</waitForChild>

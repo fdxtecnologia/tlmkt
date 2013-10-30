@@ -4,14 +4,15 @@
  */
 package br.com.fdxtecnologia.tlmkt.controller;
 
-import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
 import br.com.fdxtecnologia.tlmkt.dao.UsuarioDAO;
+import br.com.fdxtecnologia.tlmkt.login.Permission;
 import br.com.fdxtecnologia.tlmkt.login.UserSession;
+import br.com.fdxtecnologia.tlmkt.model.TipoUsuario;
 import br.com.fdxtecnologia.tlmkt.model.Usuario;
 import br.com.fdxtecnologia.tlmkt.utils.CryptoUtils;
 import java.security.NoSuchAlgorithmException;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 @Resource
 @Path("/usuario")
+@Permission({TipoUsuario.ADMIN})
 public class UsuarioController {
     
     private Result result;

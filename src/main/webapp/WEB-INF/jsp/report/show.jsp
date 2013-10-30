@@ -7,9 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../template/header.jsp" %>
 <h1>Relatório de Clientes - ${tipo}</h1>
-<button type="button" class="btn btn-default btn-lg">
+<a href="<c:url value="/report/download/${tpDownload}" />" class="btn btn-default btn-lg">
     <span class="glyphicon glyphicon-print"></span> Versión en PDF
-</button>
+</a>
 <table class="table table-hover" id="table-clientes">
     <thead>
         <tr>
@@ -18,7 +18,15 @@
             <th><fmt:message key="campo.email" /></th>
             <th><fmt:message key="campo.pais" /></th>
             <th><fmt:message key="campo.telefone" /></th>
-            <th><fmt:message key="campo.idade" /></th>
+                <c:choose>
+                    <c:when test='${tpDownload eq "semResposta"}'>
+                    <th><fmt:message key="campo.dataUltimoEnvio" /></th>
+                    </c:when>
+                    <c:otherwise>
+                    <th><fmt:message key="campo.idade" /></th>  
+                    </c:otherwise>
+                </c:choose>
+
         </tr>
     </thead>
     <tbody>
@@ -29,7 +37,14 @@
                 <td>${cliente.email}</td>
                 <td>${cliente.pais}</td>
                 <td>${cliente.telefone}</td>
-                <td>${cliente.idade}</td>
+                <c:choose>
+                    <c:when test='${tpDownload eq "semResposta"}'>
+                        <td>${cliente.dataEnvioEmailStr}</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td>${cliente.idade}</td>
+                    </c:otherwise>
+                </c:choose>
             </tr>
         </c:forEach>
     </tbody>

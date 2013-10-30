@@ -5,6 +5,8 @@
 package br.com.fdxtecnologia.tlmkt.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -181,5 +183,29 @@ public class Cliente implements Serializable {
 
     public void setDataEnvioEmail(Date dataEnvioEmail) {
         this.dataEnvioEmail = dataEnvioEmail;
+    }
+
+    public String getDataEnvioEmailStr() {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        return df.format(dataEnvioEmail);
+    }
+
+    /**
+     * TODO só jesus salva isso
+     */
+    public boolean getOpcaoAtivo1() {
+        return ativos == null ? false : ativos.contains("Plazos Fijos / Tasas de Interés fijas / Renta Fija");
+    }
+
+    public boolean getOpcaoAtivo2() {
+        return ativos == null ? false : ativos.contains("Renta Variable como Acciones y Fondos de Inversión");
+    }
+
+    public boolean getOpcaoAtivo3() {
+        return ativos == null ? false : ativos.contains("Monedas como dólares, euros, libras esterlinas, etc.");
+    }
+
+    public boolean getOpcaoAtivo4() {
+        return ativos == null ? false : ativos.contains("Otros Activos como derivados, notas estructuradas, ETFs, etc.");
     }
 }

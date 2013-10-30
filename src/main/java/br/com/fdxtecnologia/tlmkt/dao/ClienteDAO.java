@@ -60,8 +60,8 @@ public class ClienteDAO extends GenericDAO<Cliente> {
 
     public Object[] getClientesSemResposta(int pagina) {
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DATE, -3);
-
+        
+        cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) - 3);
         try {
             Object[] response = new Object[2];
             Criteria c = session.createCriteria(Cliente.class);
