@@ -94,7 +94,7 @@
         <div class="panel-body">
             <form class="form-horizontal" ID="form-busca">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="busca" required placeholder="<fmt:message key='placeholder.busca' />"/>
+                    <input type="text" class="form-control" id="busca" required placeholder="<fmt:message key='Buscar' />"/>
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit" id="btn-busca" data-loading-text="Buscando"><fmt:message key='label.buscar' /></button>
                     </span>

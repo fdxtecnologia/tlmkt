@@ -50,19 +50,19 @@
                         <a class="navbar-brand" href="<c:url value='/login/' />">Tlmkt</a>
                         <ul class="nav navbar-nav">
                             <c:if test="${userSession.user ne null}">
-                                <li><a href='<c:url value="/cliente/list" />'><fmt:message key="link.clientes" /></a></li>
-                                <c:if test="${userSession.user.tipo eq 'ADMIN'}"><li><a href='<c:url value="/usuario/list" />'><fmt:message key="link.usuarios" /></a></li>
+                                <li><a href='<c:url value="/cliente/list" />'>Clientes</a></li>
+                                <c:if test="${userSession.user.tipo eq 'ADMIN'}"><li><a href='<c:url value="/usuario/list" />'>Usuários</a></li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios <b class="caret"></b></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="<c:url value="/report/show/lead/1" />"><fmt:message key="label.relatorio.leads" /></a></li>
-                                            <li><a href="<c:url value="/report/show/potencial/1" />"><fmt:message key="label.relatorio.potencial" /></a></li>
-                                            <li><a href="<c:url value="/report/show/fixo/1" />"><fmt:message key="label.relatorio.fixo" /></a></li>
-                                            <li><a href="<c:url value="/report/show/semResposta/1" />"><fmt:message key="label.relatorio.semresposta" /></a></li>
+                                            <li><a href="<c:url value="/report/show/lead/1" />">Relatório de Leads</a></li>
+                                            <li><a href="<c:url value="/report/show/potencial/1" />">Relatório de Clientes em Potencial</a></li>
+                                            <li><a href="<c:url value="/report/show/fixo/1" />">Relatório de Clientes Fixos</a></li>
+                                            <li><a href="<c:url value="/report/show/semResposta/1" />">Clientes que não responderam nos ultimos 3 dias</a></li>
                                         </ul>
                                     </li>
                                 </c:if>
-                                <li><a href='<c:url value="/login/logout" />'><fmt:message key="link.logout" /></a></li>
+                                <li><a href='<c:url value="/login/logout" />'>Logout</a></li>
                             </c:if>
                         </ul>
                     </div>
