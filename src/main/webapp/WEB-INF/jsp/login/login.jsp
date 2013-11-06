@@ -44,14 +44,14 @@
 </style>
 
 <form class="form-signin" method="POST" action="<c:url value='/login/doLogin' />">
-    <h2 class="form-signin-heading">Please sign in</h2>
+    <h2 class="form-signin-heading">Ingresas tus datos</h2>
     <c:if test="${message}">
         <div class="alert alert-danger">
             <fmt:message key="erro.login"></fmt:message>
             </div>
     </c:if>
-    <input type="text" class="form-control" placeholder="Email address" name="login" autofocus required>
-    <input type="password" class="form-control" placeholder="Password" name="senha" required>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <input type="text" class="form-control" placeholder="Login" name="login" autofocus required>
+    <input type="password" class="form-control" placeholder="Contraseña" name="senha" required>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
 </form>
 <%@include file="../template/footer.jsp" %>

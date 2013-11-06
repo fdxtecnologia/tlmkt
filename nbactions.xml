@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>debug</actionName>
+            <goals>
+                <goal>package</goal>
+            </goals>
+            <properties>
+                <netbeans.deploy.debugmode>true</netbeans.deploy.debugmode>
+                <netbeans.deploy>true</netbeans.deploy>
+                <Env.MAVEN_OPTS>-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=4000,server=y,suspend=n</Env.MAVEN_OPTS>
+            </properties>
+        </action>
+    </actions>

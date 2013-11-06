@@ -35,7 +35,7 @@ public class LoginController {
     @Path("/")
     public void login() {
     }
-
+    
     @Post
     public void doLogin(String login, String senha) throws NoSuchAlgorithmException {
         Usuario u = dao.getUserByCredentials(login, (senha));
