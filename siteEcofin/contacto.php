@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Ecofin - Contacto</title>
+    <title>Ecofin Asesores de Inversión - Contacto</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Html5TemplatesDreamweaver.com">
@@ -70,6 +70,7 @@
                                 <li><a href="inversiones-offshore.html">Offshore</a></li>
                                 <li><a href="inversiones-family.html">Family office</a></li>
                                 <li><a href="inversiones-jubilacion.html">Jubilación</a></li>
+                                <li><a href="inversiones-alerta.html">Alerta de Riesgo</a></li>
                             	</li>
                             </ul>
                             <li class="dropdown">
@@ -79,8 +80,8 @@
                                 <li><a href="regulacion-brokers.html">Brokers</a></li>
                                 </li>
                             </ul>
-						    <li class="active"><a href="contacto.php">Contacto</a></li>
                             <li><a href="eventos.html">Eventos</a></li>
+                            <li class="active"><a href="contacto.php">Contacto</a></li>
                             </ul>
                             </div>
                         </div>
@@ -168,10 +169,10 @@
                 
                     <h3>Empresa</h3>
 
-                    <p style="text-align:justify;">Ecofin Asesores de Inversión fue fundada por un grupo de expertos en el mercado financiero. Tanto los socios, como el grupo de analistas financieros que incorporan el Departamento de Análisis y Estrategias son titulados por importantes universidades y han vivido el día a día de la mesa de operaciones de bancos y brokers en muchas partes del mundo.</p>
+                    <p style="text-align:justify;"	>Ecofin Asesores de Inversión fue fundada por un grupo de expertos en el mercado financiero. Tanto los socios, como el grupo de analistas financieros que incorporan el Departamento de Análisis y Estrategias son titulados por importantes universidades y han vivido el día a día de la mesa de operaciones de bancos y brokers en muchas partes del mundo.</p>
                     
                     <p> 
-                        <a href="empresa.html" title="Empresa">Mission/ Vision</a><br />
+                        <a href="empresa.html" title="empresa">Misión/ Visión</a><br />
                     </p>
 
                 </div>
@@ -193,14 +194,13 @@
                     <p>
                         <a href="inversiones-jubilacion.html" title="Jubilación">Jubilación</a>
                     </p>
-
+                    <p>
+                    	<a href="inversiones-alerta.html">Alerta de Riesgo</a>
+					</p>
                 </div>
                 <div class="span3" id="footerArea3">
-
-                    <!--<h3>Sample Content</h3> 
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s. 
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s.
-                    </p>-->
+                    <p style="text-align:justify;"><br /><br />Este sitio web y todo su contenido son de carácter informativo y no representa ninguna oferta o propuesta de negocio, compra y/o venta de activos o cualquier otro tipo de instrumento financiero. Operar instrumentos y/o valores de renta variable representa un riesgo a su patrimonio. Evalúe muy bien su estrategia de inversión antes de ingresar en cualquier tipo de operación de ese carácter. En caso de duda acerca de nuestros procedimientos e políticas internas, favor contactarse con nuestro Departamento de Compliance a través del e-mail <a href="mailto:compliance@ecofincapital.com" title="Email">compliance@ecofincapital.com</a>.
+                    </p>
 
                 </div>
                 <div class="span3" id="footerArea4">
@@ -218,7 +218,7 @@
                         <i class="general foundicon-mail icon"></i>
                         <span class="field">Email:</span>
                         <br />
-                        <a href="mailto:administración@ecofincapital.com" title="Email">administración@ecofincapital.com</a><br /><br />
+                        <a href="mailto:administracion@ecofincapital.com" title="Email">administración@ecofincapital.com</a><br /><br />
                     </li>
                     <li>
                         <i class="general foundicon-home icon" style="margin-bottom:50px"></i>
