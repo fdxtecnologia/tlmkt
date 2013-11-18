@@ -89,6 +89,6 @@
         </tbody>
     </table>
 </div>
-<a class="btn btn-primary" href="<c:url value="/usuario/add" />"><fmt:message key="label.adicionar" /></a>
+<a class="btn btn-primary" href="<c:url value="/usuario/add" />"><fmt:message key="label.adicionar.usuario" /></a>
 
 <%@include file="../template/footer.jsp" %>

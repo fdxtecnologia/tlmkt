@@ -141,28 +141,22 @@
                 <th><fmt:message key="campo.email" /></th>
                 <th><fmt:message key="campo.nome" /></th>
                 <th><fmt:message key="campo.tipoCliente" /></th>
-                <th><fmt:message key="campo.dataUltimoEnvio" /></th>
-                <th><fmt:message key="campo.reenviar" /></th>
-                <th><fmt:message key="campo.promocao" /></th>
-                    <c:if test="${userSession.user.tipo eq('ADMIN')}">
-                    <th><fmt:message key="campo.editar" /></th>
-                    <th><fmt:message key="campo.excluir" /></th>
-                    </c:if>
+                <th><fmt:message key="campo.dataUltimaImpressao" /></th>
             </tr>
         </thead>
         <tbody>
             <c:forEach items="${clientes}" var="cliente">
                 <tr id="cli${cliente.id}">
                     <td>
-                        <c:if test="${cliente.tipoCliente eq('LEAD')}" >
+                        
                         <input type="checkbox" name="${cliente.id}" value="${cliente.id}" >
-                        </c:if>
+                        
                     </td>
                     <td>${cliente.id}</td>
                     <td>${cliente.email}</td>
                     <td>${cliente.nome}</td>
                     <td>${cliente.tipoCliente}</td>
-                    <td>${cliente.dataEnvioEmail}</td>
+                    <td>${cliente.dataUltimaImpressao}</td>
 
                     <td>
                         <c:if test="${cliente.tipoCliente eq('LEAD')}" >

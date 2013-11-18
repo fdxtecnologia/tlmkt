@@ -4,13 +4,18 @@
  */
 package br.com.fdxtecnologia.tlmkt.model;
 
-import br.com.fdxtecnologia.tlmkt.login.Public;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -27,6 +32,9 @@ public class Usuario implements Serializable {
     private String nome;
     private String login;
     private String senha;
+    @ElementCollection
+    @CollectionTable(name="login_logs", joinColumns=@JoinColumn(name="user_id"))
+    private List<Date> logs;
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipo;
 
@@ -69,4 +77,13 @@ public class Usuario implements Serializable {
     public void setTipo(TipoUsuario tipo) {
         this.tipo = tipo;
     }
+
+    public List<Date> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<Date> logs) {
+        this.logs = logs;
+    }
+    
 }

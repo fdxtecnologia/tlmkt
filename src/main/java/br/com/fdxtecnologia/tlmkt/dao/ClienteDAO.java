@@ -87,4 +87,37 @@ public class ClienteDAO extends GenericDAO<Cliente> {
         }
         return null;
     }
+    
+    public List<Cliente> getUltimosLeadsADD(){
+        List<Cliente> clientes;
+
+        Query query = session.createQuery("from Cliente where tipoCliente='LEAD' order by dataCadastro desc ");
+        query.setMaxResults(10);
+        clientes = (List<Cliente>) query.list();
+        
+        return clientes;
+    }
+    
+     public List<Cliente> getUltimosLeadsPromovidos(){
+        List<Cliente> clientes;
+
+        Query query = session.createQuery("from Cliente where tipoCliente='HOT_LEAD' order by dataPromocao desc ");
+        query.setMaxResults(10);
+        clientes = (List<Cliente>) query.list();
+        
+        return clientes;
+    }
+     
+     public List<Cliente> getUltimosLeadsImpressos(){
+        List<Cliente> clientes;
+
+        Query query = session.createQuery("from Cliente where tipoCliente='LEAD' and dataUltimaImpressao !='' order by dataUltimaImpressao desc ");
+        query.setMaxResults(10);
+        clientes = (List<Cliente>) query.list();
+        
+        return clientes;
+    }
+     
+     
+    
 }

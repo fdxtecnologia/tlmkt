@@ -50,6 +50,8 @@ public class ClienteController {
         result.include("clientes", list);
     }
 
+    
+    
     @Post
     public void save(Cliente cliente) {
         boolean isRepeated = false;
@@ -67,6 +69,7 @@ public class ClienteController {
             if (cliente.getTipoCliente() == null) {
                 cliente.setTipoCliente(TipoCliente.LEAD);
             }
+            cliente.setDataCadastro(new Date());
             dao.add(cliente);
             result.include("message","ok");
             result.redirectTo(ClienteController.class).list();
@@ -84,6 +87,15 @@ public class ClienteController {
         } else {
             result.use(Results.http()).sendError(500, "Cliente inexistente");
         }
+    }
+    
+    @Post("/promocao/{id}")
+    public void promocaoCliente(Long id) {
+        Cliente c = dao.findById(id);
+        c.setTipoCliente(TipoCliente.HOT_LEAD);
+        c.setDataPromocao(new Date());
+        dao.update(c);
+        result.use(Results.http()).body("ok");
     }
 
     @Post("/load/{id}")

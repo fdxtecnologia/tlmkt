@@ -16,7 +16,7 @@
     </div>
     <div class="form-group">
         <label for="login"><fmt:message key="campo.login" /></label>
-        <input type="text" class="form-control" id="login" name="usuario.login" placeholder="<fmt:message key="placeholder.email" />" required value="${usuario.login}" />
+        <input type="text" class="form-control" id="login" name="usuario.login" placeholder="<fmt:message key="placeholder.login" />" required value="${usuario.login}" />
     </div>
     <c:if test="${usuario.id eq null}">
         <div class="form-group">
@@ -35,6 +35,6 @@
             <option value="ADMIN"   <c:if test="${usuario.tipo eq 'ADMIN'}"> selected="selected"</c:if>><fmt:message key='input.tipousuario.admin' /></option>
             </select>
         </div>
-        <a type="button" class="btn btn-default" href="<c:url value="/usuario/list" />"><fmt:message key="action.voltar" /></a>
-        <button type='submit' class="btn btn-primary" data-loading-text="<fmt:message key="label.salvando" />" ><fmt:message key="action.salvar" /></button>
+        <a type="button" class="btn btn-default" href="<c:url value="/usuario/list" />"><fmt:message key="label.voltar" /></a>
+        <button type='submit' class="btn btn-primary" data-loading-text="<fmt:message key="label.salvando" />" ><fmt:message key="label.enviar" /></button>
 </form>

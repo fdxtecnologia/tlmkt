@@ -10,5 +10,5 @@ package br.com.fdxtecnologia.tlmkt.model;
  */
 public enum TipoCliente {
 
-    LEAD, POTENCIAL, FIXO;
+    LEAD, HOT_LEAD, CLIENTE;
 }

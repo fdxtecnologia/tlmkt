@@ -15,7 +15,7 @@
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="/tlmkt/js/jquery.js"></script>
         <script src="/tlmkt/js/layout.js"></script>
-        <title>TLMKT</title>
+        <title>Sistema de telemarketing - ECOFIN</title>
         <style type="text/css">
             html,
             body {
@@ -47,17 +47,20 @@
                 <nav class="navbar navbar-default" role="navigation">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="<c:url value='/login/' />">Tlmkt</a>
+                        <a class="navbar-brand" href="<c:url value='/home' />">Sistema de Telemarketing - ECOFIN</a>
                         <ul class="nav navbar-nav">
                             <c:if test="${userSession.user ne null}">
                                 <li><a href='<c:url value="/cliente/list" />'><fmt:message key="link.clientes" /></a></li>
+                                <c:if test="${userSession.user.tipo eq 'ADMIN'}">
+                                    <li><a href='<c:url value="/impresos/listImpres" />'><fmt:message key="link.impressoes" /></a></li>
+                                </c:if>
                                 <c:if test="${userSession.user.tipo eq 'ADMIN'}"><li><a href='<c:url value="/usuario/list" />'><fmt:message key="link.usuarios" /></a></li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios <b class="caret"></b></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="<c:url value="/report/show/lead/1" />"><fmt:message key="label.relatorio.leads" /></a></li>
-                                            <li><a href="<c:url value="/report/show/potencial/1" />"><fmt:message key="label.relatorio.potencial" /></a></li>
-                                            <li><a href="<c:url value="/report/show/fixo/1" />"><fmt:message key="label.relatorio.fixo" /></a></li>
+                                            <li><a href="<c:url value="/report/show/hot_lead/1" />"><fmt:message key="label.relatorio.hot_lead" /></a></li>
+                                            <li><a href="<c:url value="/report/show/cliente/1" />"><fmt:message key="label.relatorio.cliente" /></a></li>
                                             <li><a href="<c:url value="/report/show/semResposta/1" />"><fmt:message key="label.relatorio.semresposta" /></a></li>
                                         </ul>
                                     </li>

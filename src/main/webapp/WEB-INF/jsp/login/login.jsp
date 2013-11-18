@@ -44,7 +44,7 @@
 </style>
 
 <form class="form-signin" method="POST" action="<c:url value='/login/doLogin' />">
-    <h2 class="form-signin-heading">Ingresas tus datos</h2>
+    <h2 class="form-signin-heading"><img src="<c:url value='/images/ecofin_logo@300x.png' />" /></h2>
     <c:if test="${message}">
         <div class="alert alert-danger">
             <fmt:message key="erro.login"></fmt:message>
