@@ -40,85 +40,56 @@
 //        });
 //    });
 
-    function editCustomer(id) {
-        $.ajax({
-            type: "POST",
-            url: "<c:url value="/cliente/load/" />" + id,
-            data: "",
-            success: function(response) {
-                var cliente = response;
+    function imprimirHotleads() {
+        var tam = $("input[type=checkbox]:checked").length;
+        var mod = tam % 10;
+        if (tam > 0) {
+            if (mod === 0) {
+                var ids = [];
+                $("input[type=checkbox]:checked").each(function() {
+                    ids.push($(this).val());
+                });
+                //alert(ids);
+                var idsData = [];
+                $("input[type=checkbox]:checked").each(function() {
+                    idsData.push($(this).val());
+                });
 
-                document.getElementById("id").value = cliente.id;
-                document.getElementById("email").value = cliente.email;
-                document.getElementById("nome").value = cliente.nome;
-                document.getElementById('tipo').value = cliente.tipoCliente;
-
-                $("#modalCliente").modal('show');
-            }
-        });
-    }
-
-    function confirmRemoveCustomer(id) {
-        $.ajax({
-            type: "POST",
-            url: "<c:url value="/cliente/remove/" />" + id,
-            data: "",
-            success: function(response) {
-                if (response === "ok") {
-                    $("#cli" + id).remove();
+                var length = idsData.length;
+                //alert(length);
+                for (var i = 0; i < length; i++) {
+                    dataImpressao(idsData[i]);
+                    //alert(idsData[i]);
                 }
-            }
-        });
-    }
 
-    function enviarEmail(id) {
-        $.ajax({
-            type: "POST",
-            url: "<c:url value='/cliente/enviarEmailCliente' />",
-            data: "id=" + id,
-            success: function(data) {
-                if (data) {
-                    var alerta = "<div class='alert alert-success'>Email enviado com Sucesso</div>";
-                    $("#messages").append(alerta);
-                    setTimeout(function() {
-                        $(".alert").alert("close");
-                    }, 4000);
-                }
+                var url = "<c:url value='/impresos/imprimir?ids=' />" + ids.join(",");
+                window.location.href = url;
+            } else {
+                alert("Você precisa selecionar um número de clientes multiplos de 10 para impressão");
+                return false;
             }
-        });
-    }
-
-    function promocaoCustomer(id) {
-        $.ajax({
-            type: "POST",
-            url: "<c:url value="/cliente/promocao/" />" + id,
-            data: "",
-            success: function(response) {
-                if (response === "ok") {
-                    $("#cli" + id).html();
-                }
-            }
-        });
-    }
-
-    function promocaoMassa() {
-        var ids = [];
-        $("input[type=checkbox]:checked").each(function() {
-            ids.push($(this).val());
-        });
-        
-        var length = ids.length;      
-        for (var i = 0; i < length; i++) {
-           promocaoCustomer(ids[i]);
-            
+        } else {
+            alert("Selecione algum Hot Lead");
+            return false;
         }
+    }
+
+    function dataImpressao(id) {
+        $.ajax({
+            type: "POST",
+            url: "<c:url value="/impresos/updateDatas/" />" + id,
+            data: "",
+            success: function(response) {
+                
+            }
+        });
     }
 
 </script>
 
 <div id="list-customers">
     <h2>Clientes</h2>
-    <a class="btn btn-primary" href="<c:url value="/cliente/add" />"><fmt:message key="label.adicionar" /></a>
+
     <br />
     <br />
     <div class='panel panel-busca panel-default'>
@@ -133,6 +104,7 @@
             </form>
         </div>
     </div>
+    <a class="btn btn-primary" href="#" onclick="javascript:imprimirHotleads();"><fmt:message key="label.imprimir" /></a>
     <table class="table table-hover" id="table-clientes">
         <thead>
             <tr>
@@ -141,89 +113,35 @@
                 <th><fmt:message key="campo.email" /></th>
                 <th><fmt:message key="campo.nome" /></th>
                 <th><fmt:message key="campo.tipoCliente" /></th>
+                <th><fmt:message key="campo.impres" /></th>
                 <th><fmt:message key="campo.dataUltimaImpressao" /></th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${clientes}" var="cliente">
+            <c:forEach items="${clientesHOT}" var="cliente">
                 <tr id="cli${cliente.id}">
                     <td>
-                        
+
                         <input type="checkbox" name="${cliente.id}" value="${cliente.id}" >
-                        
+
                     </td>
                     <td>${cliente.id}</td>
                     <td>${cliente.email}</td>
                     <td>${cliente.nome}</td>
                     <td>${cliente.tipoCliente}</td>
+                    <td>
+
+                        <c:if test="${cliente.dataUltimaImpressao ne null}">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </c:if>
+
+                    </td>
                     <td>${cliente.dataUltimaImpressao}</td>
 
-                    <td>
-                        <c:if test="${cliente.tipoCliente eq('LEAD')}" >
-                            <button onclick='enviarEmail(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-send' ></span></button>
-                            </c:if>
-                    </td>
-
-                    <td>
-                        <c:if test="${cliente.tipoCliente eq('LEAD')}" >
-
-                            <button onclick='promocaoCustomer(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-send' ></span></button>
-                            </c:if>
-                    </td>
-
-                    <c:if test="${userSession.user.tipo eq('ADMIN')}">
-                        <td><a class='btn btn-default' href="<c:url value="/cliente/edit"/>/${cliente.id}"><span class='glyphicon glyphicon-edit' ></span></a></td>
-                        <td><button onclick='confirmRemoveCustomer(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-remove' ></span></button></td>
-                            </c:if>
                 </tr>
             </c:forEach>
-            <tr>
-                <td><a class="btn btn-primary" href="<c:url value="/cliente/list" />" onclick="javascript:promocaoMassa();"><fmt:message key="campo.promocao" /></a></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-
-                </td>
-                <td></td>
-            </tr>
         </tbody>
     </table>
-</div>
-
-<div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><fmt:message key="title.modal.cliente" /></h4>
-            </div>
-            <form role="form" id="form-cliente">
-                <div class="modal-body">
-                    <input type="hidden" id="id" name="cliente.id" value="${clienteLoaded.id}" />
-                    <div class="form-group">
-                        <label for="email"><fmt:message key="campo.email" /></label>
-                        <input type="email" class="form-control" id="email" name="cliente.email" value="${clienteLoaded.email}" placeholder="<fmt:message key="placeholder.email" />" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="nome"><fmt:message key="campo.nome" /></label>
-                        <input type="text" class="form-control" id="nome" name="cliente.nome" value="${clienteLoaded.nome}" placeholder="<fmt:message key="placeholder.nome" />" required />
-                    </div>
-                    <div class="alert alert-warning fade in" id="alertModalCliente" hidden>
-                        <button type="button" class="close" onclick="$('#alertModalCliente').hide()">&times;</button>
-                        <strong><fmt:message key="erro.cliente.title" /></strong> <fmt:message key="erro.cliente.message" />
-                    </div>    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="action.fechar" /></button>
-                    <button type='submit' class="btn btn-primary" data-loading-text="<fmt:message key="label.salvando" />" ><fmt:message key="action.salvar" /></button>
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
 
 <%@include file="../template/footer.jsp" %>

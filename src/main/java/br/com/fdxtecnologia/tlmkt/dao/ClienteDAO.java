@@ -88,6 +88,15 @@ public class ClienteDAO extends GenericDAO<Cliente> {
         return null;
     }
     
+    public List<Cliente> getHotLeads(){
+        List<Cliente> clientes;
+
+        Query query = session.createQuery("from Cliente where tipoCliente='HOT_LEAD'");
+        clientes = (List<Cliente>) query.list();
+        
+        return clientes;
+    }
+    
     public List<Cliente> getUltimosLeadsADD(){
         List<Cliente> clientes;
 
@@ -118,6 +127,16 @@ public class ClienteDAO extends GenericDAO<Cliente> {
         return clientes;
     }
      
-     
+     public List<Cliente> getHotleadsImprimir(String ids){
+         List<Cliente> clientes;
+         String[] id = ids.split(",");
+         Long[] codigos = new Long[id.length];
+         for(int i = 0; i<id.length; i++){
+            codigos[i] = Long.parseLong(id[i]);
+         }
+         Query query = session.createQuery("from Cliente where id in ("+ids+")");
+         clientes = (List<Cliente>) query.list();
+         return clientes;
+     }
     
 }
