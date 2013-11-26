@@ -19,6 +19,7 @@ import br.com.fdxtecnologia.tlmkt.utils.CryptoUtils;
 import com.google.common.base.Joiner;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -45,24 +46,30 @@ public class HomeController {
     public void index() {
         List<Cliente> list = dao.getUltimosLeadsADD();
         result.include("clientesLEAD", list);
-        
+
         List<Cliente> listHot = dao.getUltimosLeadsPromovidos();
         result.include("clientesPROMOV", listHot);
-        
+
         List<Cliente> listImpressoes = dao.getUltimosLeadsImpressos();
         result.include("clientesIMPRES", listImpressoes);
-        
-        List<Date> LogsUsuario = new ArrayList<Date>();
+
+        List<String> LogsUsuario = new ArrayList<String>();
         int x = 1;
-        while (x <= 5) {
-          LogsUsuario.add(userSession.getUser().getLogs().get(userSession.getUser().getLogs().size() - x));
-          x++;
+        int length = userSession.getUser().getLogsStr().size();
+        if(length > 0) {
+            while(x < length){
+                LogsUsuario.add(userSession.getUser().getLogsStr().get(userSession.getUser().getLogs().size() - x));
+                x++;
+                if(x > 5){
+                    break;
+                }
+            }
         }
         result.include("userLogins", LogsUsuario);
-                
+
     }
-    
+
     public void listLeads() {
-        
-    }  
+
+    }
 }

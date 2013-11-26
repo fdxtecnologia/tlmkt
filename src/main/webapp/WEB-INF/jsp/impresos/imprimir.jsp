@@ -11,6 +11,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Imprimir Hot Leads</title>
+        <script type="text/javascript">
+            window.print();
+        </script>
     </head>
 
     <body>
@@ -25,9 +28,10 @@
                     <td width="1168" height="290" align="center" style="font-size: 14px">
                         <h2>${cliente.id} - ${cliente.nome}</h2><br />
                         ${cliente.email}<br />
-                        ${cliente.cidade}<br />
                         ${cliente.telefone}<br />
                         ${cliente.celular} <br />
+                        ${cliente.cidade}<br />
+                        ${cliente.pais}
                     </td>
                     <c:if test="${cont.count % 2 == 0}">    
                     </tr>

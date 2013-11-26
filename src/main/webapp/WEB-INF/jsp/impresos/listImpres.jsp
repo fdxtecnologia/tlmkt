@@ -63,7 +63,7 @@
                 }
 
                 var url = "<c:url value='/impresos/imprimir?ids=' />" + ids.join(",");
-                window.location.href = url;
+                window.open(url);
             } else {
                 alert("Você precisa selecionar um número de clientes multiplos de 10 para impressão");
                 return false;

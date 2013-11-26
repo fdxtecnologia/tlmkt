@@ -5,6 +5,9 @@
 package br.com.fdxtecnologia.tlmkt.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CollectionTable;
@@ -33,7 +36,7 @@ public class Usuario implements Serializable {
     private String login;
     private String senha;
     @ElementCollection
-    @CollectionTable(name="login_logs", joinColumns=@JoinColumn(name="user_id"))
+    @CollectionTable(name = "login_logs", joinColumns = @JoinColumn(name = "user_id"))
     private List<Date> logs;
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipo;
@@ -85,5 +88,14 @@ public class Usuario implements Serializable {
     public void setLogs(List<Date> logs) {
         this.logs = logs;
     }
-    
+
+    public List<String> getLogsStr() {
+        List<String> listaDataStr = new ArrayList<String>();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        for (Date data : logs) {
+            listaDataStr.add(df.format(data));
+        }
+        return listaDataStr;
+    }
+
 }

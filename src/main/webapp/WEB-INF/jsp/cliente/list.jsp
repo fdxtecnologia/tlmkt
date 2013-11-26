@@ -95,7 +95,9 @@
             data: "",
             success: function(response) {
                 if (response === "ok") {
-                    $("#cli" + id).html();
+                    $("#cli" + id +" .checkcli").text("");
+                    $("#cli" + id +" .clientetipo").text("HOT_LEAD");
+                    $("#cli" + id +" .clientepromocaobutton").text("");
                 }
             }
         });
@@ -153,33 +155,33 @@
         <tbody>
             <c:forEach items="${clientes}" var="cliente">
                 <tr id="cli${cliente.id}">
-                    <td>
+                    <td class="checkcli">
                         <c:if test="${cliente.tipoCliente eq('LEAD')}" >
                         <input type="checkbox" name="${cliente.id}" value="${cliente.id}" >
                         </c:if>
                     </td>
-                    <td>${cliente.id}</td>
-                    <td>${cliente.email}</td>
-                    <td>${cliente.nome}</td>
-                    <td>${cliente.tipoCliente}</td>
-                    <td>${cliente.dataEnvioEmail}</td>
+                    <td class="clienteid">${cliente.id}</td>
+                    <td class="clienteemail">${cliente.email}</td>
+                    <td class="clientenome">${cliente.nome}</td>
+                    <td class="clientetipo">${cliente.tipoCliente}</td>
+                    <td class="clientedataenvio">${cliente.dataEnvioEmail}</td>
 
-                    <td>
+                    <td class="clienteenviabutton">
                         <c:if test="${cliente.tipoCliente eq('LEAD')}" >
                             <button onclick='enviarEmail(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-send' ></span></button>
                             </c:if>
                     </td>
 
-                    <td>
+                    <td class="clientepromocaobutton">
                         <c:if test="${cliente.tipoCliente eq('LEAD')}" >
 
-                            <button onclick='promocaoCustomer(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-send' ></span></button>
+                            <button onclick='promocaoCustomer(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-chevron-up' ></span></button>
                             </c:if>
                     </td>
 
                     <c:if test="${userSession.user.tipo eq('ADMIN')}">
-                        <td><a class='btn btn-default' href="<c:url value="/cliente/edit"/>/${cliente.id}"><span class='glyphicon glyphicon-edit' ></span></a></td>
-                        <td><button onclick='confirmRemoveCustomer(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-remove' ></span></button></td>
+                        <td class="clienteeditbutton"><a class='btn btn-default' href="<c:url value="/cliente/edit"/>/${cliente.id}"><span class='glyphicon glyphicon-edit' ></span></a></td>
+                        <td class="clientedeletebutton"><button onclick='confirmRemoveCustomer(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-remove' ></span></button></td>
                             </c:if>
                 </tr>
             </c:forEach>
