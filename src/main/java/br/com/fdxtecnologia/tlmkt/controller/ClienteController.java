@@ -70,8 +70,7 @@ public class ClienteController {
                 cliente.setTipoCliente(TipoCliente.LEAD);
             }
             cliente.setDataCadastro(new Date());
-            Cliente c = dao.addReturnId(cliente);
-            System.out.println("Cliente id:"+c.getId());
+            dao.add(cliente);
             result.include("message","ok");
             result.redirectTo(ClienteController.class).list();
         } else {
