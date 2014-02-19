@@ -158,6 +158,8 @@ public class ClienteController {
     @Post
     public void enviarEmailCliente(Long id) throws NoSuchAlgorithmException {
         Cliente cliente = dao.findById(id);
+        //System.out.println(id);
+        //System.out.println(cliente);
         if (cliente != null) {
 
             if (cliente.getHashForm() == null) {
@@ -170,12 +172,15 @@ public class ClienteController {
                         .template("templateMailing")
                         .with("cliente", cliente)
                         .to(cliente.getNome(), cliente.getEmail());
+                //System.out.println(cliente.getEmail());
                 email.setFrom("no-responda@ecofincapital.com", "Ecofin");
                 email.setSubject("Nos Gustaria Saber más sobre usted!");
+                //System.out.println(email.getToAddresses());
+                //System.out.println(email.getSubject());
                 mailer.send(email);
             } catch (EmailException e) {
             }
-            result.of(Results.http()).body(cliente.getEmail());
+             result.nothing();
         }
     }
 }

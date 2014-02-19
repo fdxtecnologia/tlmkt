@@ -72,11 +72,13 @@
     }
 
     function enviarEmail(id) {
+        alert(id);
         $.ajax({
             type: "POST",
-            url: "<c:url value='/cliente/enviarEmailCliente' />",
-            data: "id=" + id,
+            url: "<c:url value="/cliente/enviarEmailCliente" />",
+            data: "id="+ id,
             success: function(data) {
+                alert(data);
                 if (data) {
                     var alerta = "<div class='alert alert-success'>Email enviado com Sucesso</div>";
                     $("#messages").append(alerta);
