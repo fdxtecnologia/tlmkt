@@ -13,6 +13,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -26,6 +27,15 @@ public class ClienteDAO extends GenericDAO<Cliente> {
         super(session);
     }
 
+    public Cliente addReturnId(Cliente cliente){
+        Cliente c = cliente;
+        Transaction tx = session.beginTransaction();
+        session.save(c);
+        tx.commit();
+        
+        return c;
+    }
+    
     public Cliente getClientByEmailHash(String hash) {
         Criteria c = session.createCriteria(Cliente.class);
         c.add(Restrictions.eq("hashForm", hash));

@@ -21,6 +21,8 @@ import com.google.common.base.Joiner;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 
@@ -70,7 +72,12 @@ public class ClienteController {
                 cliente.setTipoCliente(TipoCliente.LEAD);
             }
             cliente.setDataCadastro(new Date());
-            dao.add(cliente);
+            Cliente c = dao.addReturnId(cliente);
+            try {
+                enviarEmailCliente(c.getId());
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             result.include("message","ok");
             result.redirectTo(ClienteController.class).list();
         } else {
