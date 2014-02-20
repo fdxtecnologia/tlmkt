@@ -13,6 +13,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -26,6 +27,15 @@ public class ClienteDAO extends GenericDAO<Cliente> {
         super(session);
     }
 
+    public Cliente addReturnId(Cliente cliente){
+        Cliente c = cliente;
+        Transaction tx = session.beginTransaction();
+        session.save(c);
+        tx.commit();
+        
+        return c;
+    }
+    
     public Cliente getClientByEmailHash(String hash) {
         Criteria c = session.createCriteria(Cliente.class);
         c.add(Restrictions.eq("hashForm", hash));
@@ -87,4 +97,56 @@ public class ClienteDAO extends GenericDAO<Cliente> {
         }
         return null;
     }
+    
+    public List<Cliente> getHotLeads(){
+        List<Cliente> clientes;
+
+        Query query = session.createQuery("from Cliente where tipoCliente='HOT_LEAD'");
+        clientes = (List<Cliente>) query.list();
+        
+        return clientes;
+    }
+    
+    public List<Cliente> getUltimosLeadsADD(){
+        List<Cliente> clientes;
+
+        Query query = session.createQuery("from Cliente where tipoCliente='LEAD' order by dataCadastro desc ");
+        query.setMaxResults(10);
+        clientes = (List<Cliente>) query.list();
+        
+        return clientes;
+    }
+    
+     public List<Cliente> getUltimosLeadsPromovidos(){
+        List<Cliente> clientes;
+
+        Query query = session.createQuery("from Cliente where tipoCliente='HOT_LEAD' order by dataPromocao desc ");
+        query.setMaxResults(10);
+        clientes = (List<Cliente>) query.list();
+        
+        return clientes;
+    }
+     
+     public List<Cliente> getUltimosLeadsImpressos(){
+        List<Cliente> clientes;
+
+        Query query = session.createQuery("from Cliente where tipoCliente='LEAD' and dataUltimaImpressao !='' order by dataUltimaImpressao desc ");
+        query.setMaxResults(10);
+        clientes = (List<Cliente>) query.list();
+        
+        return clientes;
+    }
+     
+     public List<Cliente> getHotleadsImprimir(String ids){
+         List<Cliente> clientes;
+         String[] id = ids.split(",");
+         Long[] codigos = new Long[id.length];
+         for(int i = 0; i<id.length; i++){
+            codigos[i] = Long.parseLong(id[i]);
+         }
+         Query query = session.createQuery("from Cliente where id in ("+ids+")");
+         clientes = (List<Cliente>) query.list();
+         return clientes;
+     }
+    
 }

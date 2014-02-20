@@ -51,15 +51,15 @@
                 <div class="form">
                     <form action="<c:url value="/cliente/saveClienteMailing" />" method="POST">
                         <input type="hidden" name="cliente.hashEmail" value="${cliente.hashForm}" />
-                        <input type="hidden" name="cliente.tipoCliente" value="POTENCIAL" />
+                        <input type="hidden" name="cliente.tipoCliente" value="HOT_LEAD" />
 
                         <div class="form-group">
                             <label for="nome"><fmt:message key="label.nome" /></label>
-                            <input type="text" class="form-control" name="cliente.nome" required value="${cliente.nome}"/>
+                            <input type="text" class="form-control" name="cliente.nome" required value="${cliente.nome}" readonly="true"/>
                         </div>
                         <div class="form-group">
                             <label for="nome"><fmt:message key="label.email" /></label>
-                            <input type="text" class="form-control" name="cliente.email" required value="${cliente.email}"/>
+                            <input type="text" class="form-control" name="cliente.email" required value="${cliente.email}" readonly="true"/>
                         </div>
                         <div class="form-group">
                             <label>En relación a las finanzas, usted como se considera</label>

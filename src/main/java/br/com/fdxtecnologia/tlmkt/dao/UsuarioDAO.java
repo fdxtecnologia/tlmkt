@@ -8,8 +8,11 @@ import br.com.caelum.vraptor.ioc.Component;
 import br.com.fdxtecnologia.tlmkt.model.Usuario;
 import br.com.fdxtecnologia.tlmkt.utils.CryptoUtils;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -19,6 +22,7 @@ import org.hibernate.criterion.Restrictions;
  */
 @Component
 public class UsuarioDAO extends GenericDAO<Usuario> {
+    
 
     public UsuarioDAO(Session session) {
         super(session);
@@ -36,4 +40,6 @@ public class UsuarioDAO extends GenericDAO<Usuario> {
         c.add(Restrictions.ilike("nome", busca));
         return (List<Usuario>) c.list();
     }
+    
+    
 }

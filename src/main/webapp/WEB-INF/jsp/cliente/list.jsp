@@ -72,11 +72,13 @@
     }
 
     function enviarEmail(id) {
+        alert(id);
         $.ajax({
             type: "POST",
-            url: "<c:url value='/cliente/enviarEmailCliente' />",
-            data: "id="+id,
+            url: "<c:url value="/cliente/enviarEmailCliente" />",
+            data: "id="+ id,
             success: function(data) {
+                alert(data);
                 if (data) {
                     var alerta = "<div class='alert alert-success'>Email enviado com Sucesso</div>";
                     $("#messages").append(alerta);
@@ -87,9 +89,42 @@
             }
         });
     }
+
+    function promocaoCustomer(id) {
+        $.ajax({
+            type: "POST",
+            url: "<c:url value="/cliente/promocao/" />" + id,
+            data: "",
+            success: function(response) {
+                if (response === "ok") {
+                    $("#cli" + id +" .checkcli").text("");
+                    $("#cli" + id +" .clientetipo").text("HOT_LEAD");
+                    $("#cli" + id +" .clientepromocaobutton").text("");
+                }
+            }
+        });
+    }
+
+    function promocaoMassa() {
+        var ids = [];
+        $("input[type=checkbox]:checked").each(function() {
+            ids.push($(this).val());
+        });
+        
+        var length = ids.length;      
+        for (var i = 0; i < length; i++) {
+           promocaoCustomer(ids[i]);
+            
+        }
+    }
+
 </script>
+
 <div id="list-customers">
     <h2>Clientes</h2>
+    <a class="btn btn-primary" href="<c:url value="/cliente/add" />"><fmt:message key="label.adicionar" /></a>
+    <br />
+    <br />
     <div class='panel panel-busca panel-default'>
         <div class="panel-body">
             <form class="form-horizontal" ID="form-busca">
@@ -105,33 +140,69 @@
     <table class="table table-hover" id="table-clientes">
         <thead>
             <tr>
+                <th></th>
                 <th><fmt:message key="campo.id" /></th>
                 <th><fmt:message key="campo.email" /></th>
                 <th><fmt:message key="campo.nome" /></th>
                 <th><fmt:message key="campo.tipoCliente" /></th>
                 <th><fmt:message key="campo.dataUltimoEnvio" /></th>
                 <th><fmt:message key="campo.reenviar" /></th>
-                <th><fmt:message key="campo.editar" /></th>
-                <th><fmt:message key="campo.excluir" /></th>
+                <th><fmt:message key="campo.promocao" /></th>
+                    <c:if test="${userSession.user.tipo eq('ADMIN')}">
+                    <th><fmt:message key="campo.editar" /></th>
+                    <th><fmt:message key="campo.excluir" /></th>
+                    </c:if>
             </tr>
         </thead>
         <tbody>
             <c:forEach items="${clientes}" var="cliente">
                 <tr id="cli${cliente.id}">
-                    <td>${cliente.id}</td>
-                    <td>${cliente.email}</td>
-                    <td>${cliente.nome}</td>
-                    <td>${cliente.tipoCliente}</td>
-                    <td>${cliente.dataEnvioEmail}</td>
-                    <td><button onclick='enviarEmail(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-send' ></span></button></td>
-                    <td><a class='btn btn-default' href="<c:url value="/cliente/edit"/>/${cliente.id}"><span class='glyphicon glyphicon-edit' ></span></a></td>
-                    <td><button onclick='confirmRemoveCustomer(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-remove' ></span></button></td>
+                    <td class="checkcli">
+                        <c:if test="${cliente.tipoCliente eq('LEAD')}" >
+                        <input type="checkbox" name="${cliente.id}" value="${cliente.id}" >
+                        </c:if>
+                    </td>
+                    <td class="clienteid">${cliente.id}</td>
+                    <td class="clienteemail">${cliente.email}</td>
+                    <td class="clientenome">${cliente.nome}</td>
+                    <td class="clientetipo">${cliente.tipoCliente}</td>
+                    <td class="clientedataenvio">${cliente.dataEnvioEmail}</td>
+
+                    <td class="clienteenviabutton">
+                        <c:if test="${cliente.tipoCliente eq('LEAD')}" >
+                            <button onclick='enviarEmail(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-send' ></span></button>
+                            </c:if>
+                    </td>
+
+                    <td class="clientepromocaobutton">
+                        <c:if test="${cliente.tipoCliente eq('LEAD')}" >
+
+                            <button onclick='promocaoCustomer(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-chevron-up' ></span></button>
+                            </c:if>
+                    </td>
+
+                    <c:if test="${userSession.user.tipo eq('ADMIN')}">
+                        <td class="clienteeditbutton"><a class='btn btn-default' href="<c:url value="/cliente/edit"/>/${cliente.id}"><span class='glyphicon glyphicon-edit' ></span></a></td>
+                        <td class="clientedeletebutton"><button onclick='confirmRemoveCustomer(${cliente.id});' type='button' class='btn btn-default'><span class='glyphicon glyphicon-remove' ></span></button></td>
+                            </c:if>
                 </tr>
             </c:forEach>
+            <tr>
+                <td><a class="btn btn-primary" href="<c:url value="/cliente/list" />" onclick="javascript:promocaoMassa();"><fmt:message key="campo.promocao" /></a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+
+                </td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
 </div>
-<a class="btn btn-primary" href="<c:url value="/cliente/add" />"><fmt:message key="label.adicionar" /></a>
 
 <div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

@@ -21,6 +21,8 @@ import com.google.common.base.Joiner;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 
@@ -50,6 +52,8 @@ public class ClienteController {
         result.include("clientes", list);
     }
 
+    
+    
     @Post
     public void save(Cliente cliente) {
         boolean isRepeated = false;
@@ -67,7 +71,15 @@ public class ClienteController {
             if (cliente.getTipoCliente() == null) {
                 cliente.setTipoCliente(TipoCliente.LEAD);
             }
-            dao.add(cliente);
+            cliente.setDataCadastro(new Date());
+            Cliente c = dao.addReturnId(cliente);
+            System.out.println(c.getId());
+            try {
+                enviarEmailClienteCadastro(c.getId());
+                //System.out.println(c.getId());
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             result.include("message","ok");
             result.redirectTo(ClienteController.class).list();
         } else {
@@ -84,6 +96,15 @@ public class ClienteController {
         } else {
             result.use(Results.http()).sendError(500, "Cliente inexistente");
         }
+    }
+    
+    @Post("/promocao/{id}")
+    public void promocaoCliente(Long id) {
+        Cliente c = dao.findById(id);
+        c.setTipoCliente(TipoCliente.HOT_LEAD);
+        c.setDataPromocao(new Date());
+        dao.update(c);
+        result.use(Results.http()).body("ok");
     }
 
     @Post("/load/{id}")
@@ -139,6 +160,8 @@ public class ClienteController {
     @Post
     public void enviarEmailCliente(Long id) throws NoSuchAlgorithmException {
         Cliente cliente = dao.findById(id);
+        //System.out.println(id);
+        //System.out.println(cliente);
         if (cliente != null) {
 
             if (cliente.getHashForm() == null) {
@@ -151,12 +174,43 @@ public class ClienteController {
                         .template("templateMailing")
                         .with("cliente", cliente)
                         .to(cliente.getNome(), cliente.getEmail());
+                //System.out.println(cliente.getEmail());
                 email.setFrom("no-responda@ecofincapital.com", "Ecofin");
                 email.setSubject("Nos Gustaria Saber más sobre usted!");
+                //System.out.println(email.getToAddresses());
+                //System.out.println(email.getSubject());
                 mailer.send(email);
             } catch (EmailException e) {
             }
-            result.of(Results.http()).body(cliente.getEmail());
+             result.nothing();
+        }
+    }
+    
+    public void enviarEmailClienteCadastro(Long id) throws NoSuchAlgorithmException {
+        Cliente cliente = dao.findById(id);
+        //System.out.println(id);
+        //System.out.println(cliente);
+        if (cliente != null) {
+
+            if (cliente.getHashForm() == null) {
+                cliente.setHashForm(CryptoUtils.sha1(new Date().getTime()));
+                cliente.setDataEnvioEmail(new Date());
+                dao.update(cliente);
+            }
+            try {
+                Email email = this.templates
+                        .template("templateMailing")
+                        .with("cliente", cliente)
+                        .to(cliente.getNome(), cliente.getEmail());
+                //System.out.println(cliente.getEmail());
+                email.setFrom("no-responda@ecofincapital.com", "Ecofin");
+                email.setSubject("Nos Gustaria Saber más sobre usted!");
+                //System.out.println(email.getToAddresses());
+                //System.out.println(email.getSubject());
+                mailer.send(email);
+            } catch (EmailException e) {
+            }
+             result.nothing();
         }
     }
 }

@@ -6,27 +6,41 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<script type="text/javascript">
+
+    function validateEmail($email) {
+      var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+      if( !emailReg.test( $email ) ) {
+        alert("Email não valido!");
+            return false;
+      } else {
+        return true;
+      }
+    }
+
+</script>
 
 <div class="form">
     <form action="<c:url value='/cliente/save'/>" method="POST">
         <input type="hidden" name="cliente.hashEmail" value="${cliente.hashForm}" />
         <input type="text" name="cliente.id" value="${cliente.id}" hidden/>
         <div class="form-group">
-            <label for="nome"><fmt:message key="label.nome" /></label>
+            <label for="nome"><fmt:message key="campo.nome" /></label>
             <input type="text" class="form-control" name="cliente.nome" required value="${cliente.nome}"/>
         </div>
         <div class="form-group">
-            <label for="nome"><fmt:message key="label.email" /></label>
-            <input type="text" class="form-control" name="cliente.email" required value="${cliente.email}"/>
+            <label for="nome"><fmt:message key="campo.email" /></label>
+            <input type="text" class="form-control" name="cliente.email" required value="${cliente.email}" onchange="validateEmail(this.value)"/>
         </div>
         <div class="form-group">
             <label for="tipo"><fmt:message key="campo.tipoCliente" /></label>
             <select class="form-control" id="tipo" name="cliente.tipoCliente">
                 <option value="LEAD" <c:if test="${cliente.tipoCliente eq 'LEAD'}"> selected="selected"</c:if>><fmt:message key='input.tipocliente.lead' /></option>
-                <option value="POTENCIAL" <c:if test="${cliente.tipoCliente eq 'POTENCIAL'}"> selected="selected"</c:if>><fmt:message key='input.tipocliente.potencial' /></option>
-                <option value="FIXO" <c:if test="${cliente.tipoCliente eq 'FIXO'}"> selected="selected"</c:if>><fmt:message key='input.tipocliente.fixo' /></option>
+                <option value="HOT_LEAD" <c:if test="${cliente.tipoCliente eq 'HOT_LEAD'}"> selected="selected"</c:if>><fmt:message key='input.tipocliente.hot_lead' /></option>
+                <option value="CLIENTE" <c:if test="${cliente.tipoCliente eq 'CLIENTE'}"> selected="selected"</c:if>><fmt:message key='input.tipocliente.cliente' /></option>
                 </select>
             </div>
             <div class="form-group">
@@ -38,8 +52,24 @@
             <input type="text" class="form-control" name="cliente.telefone" required value="${cliente.telefone}"/>
         </div>
         <div class="form-group">
-            <label for="telefone2"><fmt:message key="label.telefone2" /></label>
-            <input type="text" class="form-control" name="cliente.telefone2" value="${cliente.telefone2}"/>
+            <label for="celular"><fmt:message key="label.celular" /></label>
+            <input type="text" class="form-control" name="cliente.celular" value="${cliente.celular}"/>
+        </div>
+        <div class="form-group">
+            <label for="cidade"><fmt:message key="label.cidade" /></label>
+            <input type="text" class="form-control" name="cliente.cidade" value="${cliente.cidade}"/>
+        </div>
+        <div class="form-group">
+            <label for="horariocontato"><fmt:message key="label.horariocontato" /></label>
+            <input type="text" class="form-control" name="cliente.horariocontato" value="${cliente.horariocontato}"/>
+        </div>
+        <div class="form-group">
+            <label for="endereco"><fmt:message key="label.endereco" /></label>
+            <input type="text" class="form-control" name="cliente.endereco" value="${cliente.endereco}"/>
+        </div>
+        <div class="form-group">
+            <label for="empresa"><fmt:message key="label.empresa" /></label>
+            <input type="text" class="form-control" name="cliente.empresa" value="${cliente.empresa}"/>
         </div>
         <div class="form-group">
             <label for="informacoesAdicionais"><fmt:message key="label.informacoesAdicionais" /></label>

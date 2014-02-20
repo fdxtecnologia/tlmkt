@@ -12,6 +12,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.fdxtecnologia.tlmkt.dao.UsuarioDAO;
 import br.com.fdxtecnologia.tlmkt.model.Usuario;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 /**
  *
@@ -35,13 +36,16 @@ public class LoginController {
     @Path("/")
     public void login() {
     }
-
+    
     @Post
     public void doLogin(String login, String senha) throws NoSuchAlgorithmException {
         Usuario u = dao.getUserByCredentials(login, (senha));
         if (u != null) {
+            u.getLogs().add(new Date());
+            dao.add(u);
             userSession.setUser(u);
             result.forwardTo(HomeController.class).index();
+            
         } else {
             result.include("message", true);
             result.forwardTo(LoginController.class).login();

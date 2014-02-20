@@ -104,6 +104,7 @@
                     <stopPort>8090</stopPort>
                     <stopKey>fdx_tec_13</stopKey>
                     <waitForChild>false</waitForChild>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
                     <webApp>
                         <contextPath>/tlmkt</contextPath>
                     </webApp>

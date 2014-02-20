@@ -43,22 +43,25 @@
 
     <div class="transparent-bg" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: -1;zoom: 1;"></div>
 
+    <div class="row-fluid">
+    		<div class="span6" style="background-color:#b72026;">
+            <ul id="contact-info">
+                <li id="top" style="margin-top:10px;color:#ffffff;">                  
+                    <i class="general foundicon-phone iconLanding"></i>
+                    <span class="fieldtopLanding">Tel.: +507 282 0800</span>
+                    <br />
+                </li>
+            </ul>
+          </div>          
+    </div>
+
     <div class="divPanel notop nobottom">
             <div class="row-fluid">
                 <div class="span12">
 
-                    <div id="divLogo" class="pull-left">
-                        <a href="index.html" id="divSiteTitle"><img src="images/logo.png" alt="Ecofin" title="Ecofin: Asesores de Inversión" /></a>
+                    <div id="divLogoLanding" class="pull-right">
+                        <a href="index.html" id="divSiteTitle"><img src="images/logo-menos.png" alt="Ecofin" title="Ecofin: Asesores de Inversión" /></a>
                     </div>
-					 <div id="divLogo" class="pull-right">
-                        <ul id="contact-info">
-                            <li id="top">                  
-                                <i class="general foundicon-phone icon"></i>
-                                <span class="fieldtop">Tel.: +507 282 0800</span>
-                                <br />
-                            </li>
-                        </ul>
-					</div>
                 </div>
             </div>
 
@@ -71,146 +74,111 @@
 
     <div class="contentArea">
 
-        <div class="divPanel notop page-content">
+        <div class="divPanel notop nobottom ">
             <!--Edit Portfolio Content Area here-->
          	 <div class="jumbotron">
-         		<div class="row-fluid" id="banner" style="background-image:url(images/500px-339180052.jpg)">
-              	<div class="span7"></div>
-                <div class="span4" style="background-color:rgb(192,28,37); border-radius:5px;">
+         		<div class="row-fluid" id="banner" style="background-image:url(images/500px-339180052.png); margin-top:-70px;">
+              	<div class="span8"></div>
+                <div class="span4" style="background-color:#dcddde; border-radius:5px; margin-top:102px;">
                   <!--<h2>Formulario</h2>-->
                   		<img src="portfolio/titleForm.png" alt="Ecofin" title="Ecofin: Asesores de Inversión" />
-                        <form action="http://localhost:8080/tlmkt/cliente/save" method="POST" style="padding:0px 30px 20px 30px;">
-                            <div class="form-group">
-                                <label class="sr-only" for="inputFirstName" style="color:#ffffff;">Nombre</label>
-                                <input type="text" class="form-control span12" name="cliente.nome" id="inputFirstName" placeholder="Nombre">
+                        <form action="http://dev.fdxtecnologia.com.br/tlmkt/cliente/saveClienteMailing" method="POST" style="padding:0px 20px 0px 20px;">
+                            <div class="control-group">
+                                <label class="control-label" for="inputFirstName" style="color:#58585a;">Nombre</label>
+                                <div class="controls">
+                                	<input type="text" name="cliente.nome" class="span12" id="inputFirstName" placeholder="Nombre">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="inputEmail" style="color:#ffffff;">Email</label>
-                                <input type="email" class="form-control span12" name="cliente.email" id="inputEmail" placeholder="Email">
+                            <div class="control-group">
+                                <label class="control-label" for="inputEmail" style="color:#58585a;">Email</label>
+                                <div class="controls">
+                                	<input type="email" name="cliente.email" class="span12" id="inputEmail" placeholder="Email">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="inputPhone" style="color:#ffffff;">Tel&eacute;fono</label>
-                                <input type="text" class="form-control span12" name="cliente.telefone" id="inputPhone" placeholder="Tel&eacute;fono">
+                            <div class="control-group">
+                                <label class="control-label" for="inputPhone" style="color:#58585a;">Tel&eacute;fono</label>
+                                <div class="controls">
+                                	<input type="text" name="cliente.telefone" class="span12" id="inputPhone" placeholder="Tel&eacute;fono">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="inputCountry" style="color:#ffffff;">Pa&iacute;s</label>
-                                <input type="text" class="form-control span12" name="cliente.pais" id="inputCountry" placeholder="Pa&iacute;s">
+                            <div class="control-group">
+                                <label class="control-label" for="inputCountry" style="color:#58585a;">Pa&iacute;s</label>
+                                <div class="controls">
+                                	<input type="text" name="cliente.pais" class="span12" id="inputCountry" placeholder="Pa&iacute;s">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="inputCity" style="color:#ffffff;">Ciudad</label>
-                                <input type="text" class="form-control span12" name="cliente.cidade" id="inputCity" placeholder="Ciudad">
+                            <div class="control-group">
+                                <label class="control-label" for="inputCity" style="color:#58585a;">Ciudad</label>
+                                <div class="controls">
+                                	<input type="text" name="cliente.cidade" class="span12" id="inputCity" placeholder="Ciudad">
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-danger" style="margin-top:20px">Enviar</button>
+                            <div class="control-group">
+                            	<div class="controls">
+                            		<button type="submit" class="btn btn-danger">Enviar</button>
+                                </div>
+                            </div>
                         </form>
               		</div>
          		</div>
     </div>
-            <hr>	
-            <div class="row-fluid">
-                <div class="span12">
-            <div class="yoxview">
-		  <div class="row-fluid">
-            <ul class="thumbnails">
-              <li class="span3">
-                <div class="thumbnail">
-                  <a href="portfolio/preview-300-EcoIron.png"><img src="portfolio/300x200-EcoIron.png" alt="Thumbnail Placeholder" title="Hemos firmado un acuerdo de representación con el broker más premiado internacionalmente en 2013. Tendrá acceso a los mejores spreads y comisiones del mercado, agregado al mejor asesoramiento financiero de Latinoamérica."/></a>
-                </div>
-              </li>
-              <li class="span3">
-                <div class="thumbnail">
-                  <a href="portfolio/preview-300-longShort.png"><img src="portfolio/300x200-longShort.png" alt="Thumbnail Placeholder" title="Solamente con los CFDs podrá aprovecharse en cualquier tendencias de mercado, tanto a la baja cuanto al alza."/></a>
-                </div>
-              </li>
-              <li class="span3">
-                <div class="thumbnail">
-                  <a href="portfolio/preview-300-wallst.png"><img src="portfolio/300x200-wallst.png" alt="Thumbnail Placeholder" title="Negocia CFDs sobre acciones, futuros, índices y metales preciosos en una sola cuenta Sácale provecho a la negociación de bajo margen y costo. Nuestras herramientas gratuitas de análisis te ayudarán a tomar decisiones mejor informadas en tus negociaciones con CFDs."/></a>
-                </div>
-              </li>
-			  <li class="span3">
-                <div class="thumbnail">
-                  <a href="portfolio/preview-300-smvfsa.png"><img src="portfolio/300x200-smvfsa.png" alt="Thumbnail Placeholder" title="Estará cubierto por dos reguladores de mercado, tanto en Europa como en Latinoamérica. Garantía de servicio de primer nível en su propio país."/></a>
-                </div>
-              </li>
-            </ul>
-			</div>
-          </div>
-
-                </div>
-                
-            </div>
+            <hr>
+            
 			<!--/End Portfolio Content Area-->
 
             <div id="footerInnerSeparator"></div>
         </div>
     </div>
+    
+    <div class="row-fluid" style="background-color:#b72026;">
+            	<div class="span12">
+            		<div class="yoxview">
+		  				<div class="row-fluid">
+            			<ul class="thumbnails">
+              			<li class="span3">
+                        	<h5 style="color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-weight:300;">PARCERIA IronFX</h5>
+                            <div class="thumbnail">
+                              <a href="portfolio/preview-300-EcoIron.png"><img src="portfolio/300x200-EcoIron.png" alt="Thumbnail Placeholder" title="Hemos firmado un acuerdo de representación con el broker más premiado internacionalmente en 2013. Tendrá acceso a los mejores spreads y comisiones del mercado, agregado al mejor asesoramiento financiero de Latinoamérica."/></a>
+                            </div>
+              			</li>
+                        <li class="span3">
+                        	<h5 style="color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-weight:300;">LONG | SHORT</h5>
+                            <div class="thumbnail">
+                              <a href="portfolio/preview-300-longShort.png"><img src="portfolio/300x200-longShort.png" alt="Thumbnail Placeholder" title="Solamente con los CFDs podrá aprovecharse en cualquier tendencias de mercado, tanto a la baja cuanto al alza."/></a>
+                            </div>
+                        </li>
+              			<li class="span3">
+                        	<h5 style="color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-weight:300;">ANÁLISIS GRATUITAS</h5>
+                			<div class="thumbnail">
+                  				<a href="portfolio/preview-300-wallst.png"><img src="portfolio/300x200-wallst.png" alt="Thumbnail Placeholder" title="Negocia CFDs sobre acciones, futuros, índices y metales preciosos en una sola cuenta Sácale provecho a la negociación de bajo margen y costo. Nuestras herramientas gratuitas de análisis te ayudarán a tomar decisiones mejor informadas en tus negociaciones con CFDs."/></a>
+                			</div>
+              			</li>
+			  			<li class="span3">
+                        	<h5 style="color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-weight:300;">SEGURIDAD</h5>
+                			<div class="thumbnail">
+                  				<a href="portfolio/preview-300-smvfsa.png"><img src="portfolio/300x200-smvfsa.png" alt="Thumbnail Placeholder" title="Estará cubierto por dos reguladores de mercado, tanto en Europa como en Latinoamérica. Garantía de servicio de primer nível en su propio país."/></a>
+                			</div>
+              			</li>
+            			</ul>
+					</div>
+          		</div>
 
-    <div id="footerOuterSeparator"></div>
+           </div>
+                
+       </div>
 
-    <div id="divFooter" class="footerArea">
+    <div id="divFooterLanding" class="footerArea">
 
         <div class="divPanel">
 
             <div class="row-fluid">
-                <div class="span3" id="footerArea1">
-                
-                    <h3>Empresa</h3>
-
-                    <p style="text-align:justify;"	>Ecofin Asesores de Inversión fue fundada por un grupo de expertos en el mercado financiero. Tanto los socios, como el grupo de analistas financieros que incorporan el Departamento de Análisis y Estrategias son titulados por importantes universidades y han vivido el día a día de la mesa de operaciones de bancos y brokers en muchas partes del mundo.</p>
-                    
-                    <p> 
-                        <a href="empresa.html" title="empresa">Mission/ Vision</a><br />
-                    </p>
-
-                </div>
-                <div class="span3" id="footerArea2">
-
-                </div>
-                <div class="span3" id="footerArea3">
-
-                    <!--<h3>Sample Content</h3> 
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s. 
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s.
-                    </p>-->
-
-                </div>
-                <div class="span3" id="footerArea4">
-
-                    <h3>Contacto</h3>  
-                                                               
-                    <ul id="contact-info">
-                    <li>                                    
-                        <i class="general foundicon-phone icon"></i>
-                        <span class="field">Teléfono:</span>
-                        <br />
-                        Tel: +507 282 0800<br /><br />                                            
-                    </li>
-                    <li>
-                        <i class="general foundicon-mail icon"></i>
-                        <span class="field">Email:</span>
-                        <br />
-                        <a href="mailto:administración@ecofincapital.com" title="Email">administración@ecofincapital.com</a><br /><br />
-                    </li>
-                    <li>
-                        <i class="general foundicon-home icon" style="margin-bottom:50px"></i>
-                        <span class="field">Direcciones:</span>
-                        <br />
-                        Panamá<br />
-                        Casa Matriz<br /><br/>
-                        Calle Aquilino de la Guardia, Torre Banesco<br />
-                        Edificio Ocean Business Plaza, Marbella<br />
-                        Oficina 2402, Piso 24<br />
-                        Ciudad de Panamá, Panamá<br />
-                    </li>
-                    </ul>
-
-                </div>
-            </div>
-
-            <br /><br />
-            <div class="row-fluid">
                 <div class="span12">
-                    <p class="copyright">
-                        Copyright © 2013 Ecofin. All Rights Reserved.
+                    <p class="copyrightLanding">
+                        • Ecofin Asesores de Inversión S.A. es una empresa registrada en la República do Panamá, inscrita en la ficha 663948, documento 1588427 de la sesión mercantil do Registro Público do Panamá, con domicilio legal e fiscal registrado en la Calle Aquilino de La Guardia, Edificio Ocean Business Plaza, Piso 14, Oficina 1402, Ciudad de Panamá, Panamá.<br />
+                        • Ecofin Asesores de Inversión S.A. es un Asesor de Inversiones regulado por la Comisión Nacional de Valores (CNV) de Panamá, autorizado por la Resolución No. 24-10 de 22 de janeiro de 2010. Ecofin está autorizada a administrar cuentas de inversión, valores e dinero de clientes de manera discrecional o no discrecional, además de poder realizar cualquier tipo de Asesoría de Inversiones.<br />
+                        • Este documento y todo su contenido son de carácter informativo y no representa ninguna oferta o propuesta de negocio, compra y/o venta de activos o cualquier otro tipo de instrumento financiero.<br />
+                        • Operar instrumentos y/o valores de renta variable representa un riesgo a su patrimonio. Evalúe muy bien su estrategia de inversión antes de ingresar en cualquier tipo de operación de ese carácter.<br />
+                        • En caso de duda acerca de nuestros procedimientos e políticas internas, favor contactarse con nuestro Departamento de Compliance.<br /> 
                     </p>
 
                     <!-- <p class="social_bookmarks">
