@@ -28,11 +28,11 @@
         <input type="hidden" name="cliente.hashEmail" value="${cliente.hashForm}" />
         <input type="text" name="cliente.id" value="${cliente.id}" hidden/>
         <div class="form-group">
-            <label for="nome"><fmt:message key="label.nome" /></label>
+            <label for="nome"><fmt:message key="campo.nome" /></label>
             <input type="text" class="form-control" name="cliente.nome" required value="${cliente.nome}"/>
         </div>
         <div class="form-group">
-            <label for="nome"><fmt:message key="label.email" /></label>
+            <label for="nome"><fmt:message key="campo.email" /></label>
             <input type="text" class="form-control" name="cliente.email" required value="${cliente.email}" onchange="validateEmail(this.value)"/>
         </div>
         <div class="form-group">

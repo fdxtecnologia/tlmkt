@@ -6,6 +6,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@include file="../template/header.jsp" %>
-<h1><fmt:message key="label.usuario.cadastrar" /></h1>
+<h1><fmt:message key="label.adicionar" /></h1>
 <%@include file="form.jsp" %>
 <%@include file="../template/footer.jsp" %>
