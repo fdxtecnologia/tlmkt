@@ -65,7 +65,7 @@
                                         </ul>
                                     </li>
                                 </c:if>
-                                <li><a href='<c:url value="/login/logout" />'><fmt:message key="link.logout" /></a></li>
+                                <li><a href='<c:url value="/login/logout" />'>Logout</a></li>
                             </c:if>
                         </ul>
                     </div>
